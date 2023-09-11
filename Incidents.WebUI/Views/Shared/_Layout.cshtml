@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Incidents.WebUI</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Incidents.WebUI.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DataTables/datatables.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Incidents.WebUI</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - Incidents.WebUI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/DataTables/datatables.min.js"></script>
+    <script type="text/javascript" src="~/DataTables/DataTables-1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        // function userPageLoad()
+        // {
+        //     console.log("Loaded");
+        //     let table = $('#userTable').DataTable({
+        //         processing: true,
+        //         serverSide: true,
+        //         "ajax": {
+        //             url: "User/GetAllUsers",
+        //             type: "POST"
+        //         },
+        //         "columns": [
+        //             // { "data": "id", title: "Id", name: "id", visible: false },
+        //             { "data": "userName", title: "UserName", name: "userName" },
+        //             { "data": "fullName", title: "FullName", name: "fullName" },
+        //             { "data": "email", title: "Email", name: "email" },
+        //             { "data": "isEnabled", title: "IsEnabled", name: "isEnabled" },
+        //             { "data": "isDeleted", title: "IsDeleted", name: "isDeleted" },
+        //             // { "data": "role", title: "Role", name: "role" },
+        //         ]
+        //     });
+        // };
+
+        function loadListUsers() {
+            console.log("Loaded");
+            var editbtn = "<a onclick='FunEdit(this)' class='btn btn-primary'>Edit</a>";
+            var removebtn = "<a onclick='FunRemove(this)' class='btn btn-danger'>Remove</a>";
+            // var hdn = "<input type='hidden' value=" + data: 'id' + " />";
+            var action = editbtn + " | " + removebtn;
+
+            
+            $(".dataTables_length").addClass("bs-select");
+
+            $('#userTable').DataTable({
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                ajax: {
+                url: "@Url.Action("GetAllUsers","User")",
+                    type: "POST",
+                    data: "json"
+                },
+                columns: [
+                    { data: 'id', visible :false, filter: false},
+                    { data: 'userName' },
+                    { data: 'fullName' },
+                    { data: 'email' },
+                    { data: 'isEnabled' },
+                    { data: 'userRoles' },
+                    { data: 'isDeleted' },
+                    { 
+                        data: null, 
+                        render: function (data, type, row) {
+                            return action;
+                        }
+                    }
+                ]
+            });
+        }
+
+
+        function goToUserIndex(){
+            $.ajax({
+                url: "@Url.Action("Index", "User")",
+                xhrFields: {
+                    withCredentials: true
+                },
+                method: "GET",
+                success: function (response) { 
+                    $('#contentDiv').html(null);
+                    $('#contentDiv').html(response);
+
+                    loadListUsers();
+                    
+                    // userPageLoad();
+                }
+            })
+        }
+
+        function goToUserCreate() {
+            $.ajax({
+                url: "@Url.Action("Create", "User")",
+                xhrFields: {
+                    withCredentials: true
+                },
+                method: "GET",
+                success: function (response) {
+                    $('#contentDiv').html(null);
+                    $('#contentDiv').html(response);
+                    $("form").removeData("validator");
+                    $("form").removeData("unobtrusiveValidation");
+                    $.validator.unobtrusive.parse("form");
+                }
+            })
+        };
+
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

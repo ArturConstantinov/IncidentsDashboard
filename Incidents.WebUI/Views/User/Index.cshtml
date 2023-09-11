@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+<style>
+    .dataTables_length {
+        text-align:start;
+    }
+
+    .dataTables_info {
+        text-align: start;
+    }
+</style>
+
+<div class="container">
+    <div class="card shadow">
+        <div class="card-header">
+            Users
+        </div>
+        <div class="card-body">
+            <a onclick="goToUserCreate()" class="btn btn-primary float-start" tabindex="-1" role="button" aria-disabled="true">Create user</a>
+            <br>
+            <br>
+            <div class="table-wrapper">
+                <table id="userTable" class="data mt-2 table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0" style="width:100%">
+                    <thead class="header">
+                    <tr>
+                        <th>Id</th>
+                        <th>User Name</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Enabled</th>
+                        <th>Roles</th>
+                        <th>Deleted</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
