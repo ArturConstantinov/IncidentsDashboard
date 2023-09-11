@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Incidents.Application.Incidents.Commands.UserComands.CreateUser
+namespace Incidents.Application.Incidents.Users.Commands.CreateUser
 {
     public class CreateUserDtoValidator : AbstractValidator<CreateUserDto>
     {

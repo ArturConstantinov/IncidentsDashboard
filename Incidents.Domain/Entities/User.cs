@@ -9,7 +9,6 @@ namespace Incidents.Domain.Entities
         public string FullName { get; set; }
         public string Email { get; set; }
         public bool IsEnabled { get; set; }
-        public bool IsDeleted { get; set; }
 
         public List<UserRole> UserRoles { get; set; }
     }

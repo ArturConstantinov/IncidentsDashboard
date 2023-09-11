@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Incidents.Application.Incidents.Queries.UserQueries.GetUserByUsername
+namespace Incidents.Application.Incidents.Users.Queries.GetUserByUserName
 {
     public class GetUserByUserNameQuery : IRequest<GetUserByUserNameVm>
     {
@@ -26,7 +26,7 @@ namespace Incidents.Application.Incidents.Queries.UserQueries.GetUserByUsername
 
         public async Task<GetUserByUserNameVm> Handle(GetUserByUserNameQuery request, CancellationToken cancellationToken)
         {
-            if ((request.UserName == null || request.UserName == String.Empty) || (request.Password == null || request.Password == String.Empty))
+            if (request.UserName == null || request.UserName == string.Empty || request.Password == null || request.Password == string.Empty)
             {
                 throw new Exception();
             }
@@ -34,14 +34,14 @@ namespace Incidents.Application.Incidents.Queries.UserQueries.GetUserByUsername
             string encrypted = "";
             using (SHA256 hash = SHA256.Create())
             {
-                encrypted = String.Concat(hash
+                encrypted = string.Concat(hash
                     .ComputeHash(Encoding.UTF8.GetBytes(request.Password))
                     .Select(item => item.ToString("x2")));
             }
 
             var userVm = await _context.Users
                 .Where(x => x.UserName.ToLower() == request.UserName
-                .ToLower() && x.IsEnabled && x.IsDeleted == false && x.Password == encrypted)
+                .ToLower() && x.IsEnabled && x.Password == encrypted)
                 .Select(x => new GetUserByUserNameVm
                 {
                     Id = x.Id,
@@ -49,7 +49,6 @@ namespace Incidents.Application.Incidents.Queries.UserQueries.GetUserByUsername
                     Email = x.Email,
                     FullName = x.FullName,
                     IsEnabled = x.IsEnabled,
-                    IsDeleted = x.IsDeleted,
                     UserRoles = x.UserRoles.Where(u => u.UserId == x.Id).Select(ur => ur.Role.Name).ToList()
                 })
                 .FirstOrDefaultAsync(cancellationToken);

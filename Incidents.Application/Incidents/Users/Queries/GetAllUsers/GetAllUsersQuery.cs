@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Incidents.Application.Incidents.Queries.UserQueries.GetAllUsers
+namespace Incidents.Application.Incidents.Users.Queries.GetAllUsers
 {
     //public class GetAllUsersQuery : IRequest<List<GetAllUsersVm>>
     public class GetAllUsersQuery : IRequest<GetAllUsersVm>
@@ -45,11 +45,10 @@ namespace Incidents.Application.Incidents.Queries.UserQueries.GetAllUsers
                 "fullName" => user => user.FullName,
                 "email" => user => user.Email,
                 "isEnabled" => user => user.IsEnabled,
-                "isDeleted" => user => user.IsDeleted,
                 _ => user => user.Id
             };
 
-            if(request.Parameters.Order[0].Dir == "desc")
+            if (request.Parameters.Order[0].Dir == "desc")
             {
                 usersQuery = usersQuery.OrderByDescending(orderKey);
             }
@@ -64,7 +63,6 @@ namespace Incidents.Application.Incidents.Queries.UserQueries.GetAllUsers
                 || x.FullName.ToLower().Contains(search)
                 || x.Email.ToLower().Contains(search)
                 || x.IsEnabled.ToString().ToLower().Contains(search)
-                || x.IsDeleted.ToString().ToLower().Contains(search)
                 || x.UserRoles.Any(ur => ur.Role.Name.ToLower().Contains(search)))
                 .Skip(request.Parameters.Start)
                 .Take(request.Parameters.Length)
@@ -76,7 +74,6 @@ namespace Incidents.Application.Incidents.Queries.UserQueries.GetAllUsers
                     FullName = x.FullName,
                     Email = x.Email,
                     IsEnabled = x.IsEnabled,
-                    IsDeleted = x.IsDeleted,
                     UserRoles = x.UserRoles.Where(u => u.UserId == x.Id)
                     .Select(ur => ur.Role.Name)
                     .ToList()

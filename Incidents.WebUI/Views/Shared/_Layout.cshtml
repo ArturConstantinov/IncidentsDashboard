@@ -13,7 +13,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Incidents.WebUI</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Incidents</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,10 +23,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        
                     </ul>
+                    <a onclick="goToUserIndex()" class="nav-link text-dark" role="button" aria-disabled="true">Users</a>
+
+                    <a asp-controller="Account" asp-action="LogOut" class="nav-link text-dark" role="button" aria-disabled="true">Log Out</a>
                 </div>
             </div>
         </nav>
@@ -47,38 +48,13 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/DataTables/datatables.min.js"></script>
     <script type="text/javascript" src="~/DataTables/DataTables-1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
     <script>
-        // function userPageLoad()
-        // {
-        //     console.log("Loaded");
-        //     let table = $('#userTable').DataTable({
-        //         processing: true,
-        //         serverSide: true,
-        //         "ajax": {
-        //             url: "User/GetAllUsers",
-        //             type: "POST"
-        //         },
-        //         "columns": [
-        //             // { "data": "id", title: "Id", name: "id", visible: false },
-        //             { "data": "userName", title: "UserName", name: "userName" },
-        //             { "data": "fullName", title: "FullName", name: "fullName" },
-        //             { "data": "email", title: "Email", name: "email" },
-        //             { "data": "isEnabled", title: "IsEnabled", name: "isEnabled" },
-        //             { "data": "isDeleted", title: "IsDeleted", name: "isDeleted" },
-        //             // { "data": "role", title: "Role", name: "role" },
-        //         ]
-        //     });
-        // };
-
         function loadListUsers() {
             console.log("Loaded");
-            var editbtn = "<a onclick='FunEdit(this)' class='btn btn-primary'>Edit</a>";
-            var removebtn = "<a onclick='FunRemove(this)' class='btn btn-danger'>Remove</a>";
-            // var hdn = "<input type='hidden' value=" + data: 'id' + " />";
-            var action = editbtn + " | " + removebtn;
 
-            
             $(".dataTables_length").addClass("bs-select");
 
             $('#userTable').DataTable({
@@ -95,15 +71,8 @@
                     { data: 'userName' },
                     { data: 'fullName' },
                     { data: 'email' },
-                    { data: 'isEnabled' },
                     { data: 'userRoles' },
-                    { data: 'isDeleted' },
-                    { 
-                        data: null, 
-                        render: function (data, type, row) {
-                            return action;
-                        }
-                    }
+                    { data: 'isEnabled' }
                 ]
             });
         }
@@ -121,15 +90,27 @@
                     $('#contentDiv').html(response);
 
                     loadListUsers();
-                    
-                    // userPageLoad();
+                }
+            })
+        }
+
+        function goToLoginPage() {
+            $.ajax({
+                url: "@Url.Action("Login", "Account")",
+                xhrFields: {
+                    withCredentials: true
+                },
+                method: "GET",
+                success: function (response) {
+                    $('#contentDiv').html(null);
+                    $('#contentDiv').html(response);
                 }
             })
         }
 
         function goToUserCreate() {
             $.ajax({
-                url: "@Url.Action("Create", "User")",
+                url: "@Url.Action("GetCreateUser", "User")",
                 xhrFields: {
                     withCredentials: true
                 },

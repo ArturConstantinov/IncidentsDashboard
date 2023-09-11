@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Incidents.Application.Incidents.Commands.UserComands.DeleteUser
+namespace Incidents.Application.Incidents.Users.Commands.DeleteUser
 {
     public class DeleteUserCommand : IRequest<int>
     {
@@ -30,7 +30,6 @@ namespace Incidents.Application.Incidents.Commands.UserComands.DeleteUser
 
             user.LastModifiedBy = request.LastModifiedBy;
             user.LastModified = DateTime.UtcNow;
-            user.IsDeleted = true;
             user.IsEnabled = false;
 
             return await _context.SaveChangesAsync(cancellationToken);

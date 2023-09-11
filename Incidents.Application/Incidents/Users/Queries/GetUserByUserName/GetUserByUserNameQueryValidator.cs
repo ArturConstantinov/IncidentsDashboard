@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Incidents.Application.Incidents.Queries.UserQueries.GetUserByUsername
+namespace Incidents.Application.Incidents.Users.Queries.GetUserByUserName
 {
     public class GetUserByUserNameQueryValidator : AbstractValidator<GetUserByUserNameQuery>
     {

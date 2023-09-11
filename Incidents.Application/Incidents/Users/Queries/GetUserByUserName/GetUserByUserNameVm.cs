@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using Incidents.Application.Common.Mappings;
-using Incidents.Application.Incidents.Queries.UserQueries.GetUserById;
 using Incidents.Domain.Entities;
 
-namespace Incidents.Application.Incidents.Queries.UserQueries.GetUserByUsername
+namespace Incidents.Application.Incidents.Users.Queries.GetUserByUserName
 {
     public class GetUserByUserNameVm : IMapWith<User>
     {
@@ -13,7 +12,6 @@ namespace Incidents.Application.Incidents.Queries.UserQueries.GetUserByUsername
         public string FullName { get; set; }
         public string Email { get; set; }
         public bool IsEnabled { get; set; }
-        public bool IsDeleted { get; set; }
         public List<string> UserRoles { get; set; } = new List<string>();
 
         public void Mapping(Profile profile)
@@ -24,8 +22,7 @@ namespace Incidents.Application.Incidents.Queries.UserQueries.GetUserByUsername
                 .ForMember(x => x.Password, option => option.MapFrom(x => x.Password))
                 .ForMember(x => x.FullName, option => option.MapFrom(x => x.FullName))
                 .ForMember(x => x.Email, option => option.MapFrom(x => x.Email))
-                .ForMember(x => x.IsEnabled, option => option.MapFrom(x => x.IsEnabled))
-                .ForMember(x => x.IsDeleted, option => option.MapFrom(x => x.IsDeleted));
+                .ForMember(x => x.IsEnabled, option => option.MapFrom(x => x.IsEnabled));
         }
     }
 }

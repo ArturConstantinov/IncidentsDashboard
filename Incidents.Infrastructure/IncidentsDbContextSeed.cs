@@ -19,7 +19,6 @@ namespace Incidents.Infrastructure
             FullName = "Admin",
             Email = "admin@mail.com",
             IsEnabled = true,
-            IsDeleted = false
         };
 
         public static readonly User User = new User
@@ -30,7 +29,6 @@ namespace Incidents.Infrastructure
             FullName = "User",
             Email = "user@mail.com",
             IsEnabled = true,
-            IsDeleted = false
         };
         #endregion
 

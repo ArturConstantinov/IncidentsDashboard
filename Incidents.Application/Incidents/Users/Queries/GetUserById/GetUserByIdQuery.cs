@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Incidents.Application.Common.Interfaces;
+using Incidents.Application.Incidents.Queries.UserQueries.GetUserById;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Incidents.Application.Incidents.Queries.UserQueries.GetUserById
+namespace Incidents.Application.Incidents.Users.Queries.GetUserById
 {
     public class GetUserByIdQuery : IRequest<GetUserByIdVm>
     {
@@ -30,7 +31,6 @@ namespace Incidents.Application.Incidents.Queries.UserQueries.GetUserById
                     FullName = x.FullName,
                     Email = x.Email,
                     IsEnabled = x.IsEnabled,
-                    IsDeleted = x.IsDeleted,
                     UserRoles = x.UserRoles.Where(u => u.UserId == request.UserId).Select(ur => ur.Role.Name).ToList()
                 })
                 .FirstOrDefaultAsync(cancellationToken);

@@ -1,4 +1,4 @@
-﻿namespace Incidents.Application.Incidents.Queries.UserQueries.GetAllUsers
+﻿namespace Incidents.Application.Incidents.Users.Queries.GetAllUsers
 {
     public class GetAllUsersVm
     {
@@ -8,6 +8,5 @@
         //public string FullName { get; set; }
         //public string Email { get; set; }
         //public bool IsEnabled { get; set; }
-        //public bool IsDeleted { get; set; }
     }
 }

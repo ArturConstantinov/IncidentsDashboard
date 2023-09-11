@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Incidents.Application.Incidents.Commands.UserComands.UpdateUeser
+namespace Incidents.Application.Incidents.Users.Commands.UpdateUser
 {
     public class UpdateUserCommand : IRequest<int>
     {
@@ -15,8 +15,6 @@ namespace Incidents.Application.Incidents.Commands.UserComands.UpdateUeser
         public string FullName { get; set; }
         public string Email { get; set; }
         public bool IsEnabled { get; set; }
-        public bool IsDeleted { get; set; }
-
         public string RoleName { get; set; }
 
         //public List<string> UserRoles { get; set; } = new List<string>();
@@ -53,7 +51,6 @@ namespace Incidents.Application.Incidents.Commands.UserComands.UpdateUeser
             user.FullName = request.FullName;
             user.Email = request.Email;
             user.IsEnabled = request.IsEnabled;
-            user.IsDeleted = request.IsDeleted;
             user.LastModified = DateTime.UtcNow;
             user.LastModifiedBy = request.LastModifiedBy;
 

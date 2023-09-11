@@ -1,7 +1,7 @@
 ﻿using Incidents.Application.Common.TableParameters;
-using Incidents.Application.Incidents.Commands.UserComands.CreateUser;
 using Incidents.Application.Incidents.Queries.RoleQueries.GetAllRoles;
-using Incidents.Application.Incidents.Queries.UserQueries.GetAllUsers;
+using Incidents.Application.Incidents.Users.Commands.CreateUser;
+using Incidents.Application.Incidents.Users.Queries.GetAllUsers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -30,8 +30,8 @@ namespace Incidents.WebUI.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Create(List<string> errors = null!)
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> GetCreateUser(List<string> errors = null!)
         {
             ViewBag.Erroe = errors;
             var roles = await Mediator.Send(new GetAllRolesQuery());

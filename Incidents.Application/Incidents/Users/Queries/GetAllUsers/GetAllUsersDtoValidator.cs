@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Incidents.Application.Incidents.Queries.UserQueries.GetAllUsers
+namespace Incidents.Application.Incidents.Users.Queries.GetAllUsers
 {
     public class GetAllUsersDtoValidator : AbstractValidator<GetAllUsersDto>
     {

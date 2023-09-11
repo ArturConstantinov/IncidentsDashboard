@@ -1,9 +1,8 @@
-﻿using Incidents.Application.Incidents.Queries.UserQueries.GetUserByUsername;
+﻿using Incidents.Application.Incidents.Users.Queries.GetUserByUserName;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.IIS;
 using System.Security.Claims;
 
 namespace Incidents.WebUI.Controllers
@@ -30,7 +29,7 @@ namespace Incidents.WebUI.Controllers
                     Password = password
                 });
 
-                if (userVm == null || userVm.IsDeleted) 
+                if (userVm == null || !userVm.IsEnabled) 
                 {
                     ModelState.TryAddModelError("IncorrectLogin", "Non existen or delited user");
                     return View("Login");
@@ -58,13 +57,13 @@ namespace Incidents.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.StackTrace);
+                //Console.WriteLine(ex.StackTrace);
                 return View("Login");
             }
         }
 
         [HttpGet]
-        public async Task<IActionResult> LogOutAsync()
+        public async Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync();
             return RedirectToAction("Login");

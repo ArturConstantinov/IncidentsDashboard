@@ -5,7 +5,7 @@ using MediatR;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Incidents.Application.Incidents.Commands.UserComands.CreateUser
+namespace Incidents.Application.Incidents.Users.Commands.CreateUser
 {
     public class CreateUserCommand : IRequest<int>
     {
@@ -52,7 +52,6 @@ namespace Incidents.Application.Incidents.Commands.UserComands.CreateUser
                 Password = encrypted,
                 Email = request.UserDto.Email,
                 IsEnabled = false,
-                IsDeleted = false,
                 UserRoles = request.UserDto.RolesId.Select(id => new UserRole { RoleId = id }).ToList()
             };
 

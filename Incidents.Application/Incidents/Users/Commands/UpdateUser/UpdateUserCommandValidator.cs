@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Incidents.Application.Incidents.Commands.UserComands.UpdateUeser
+namespace Incidents.Application.Incidents.Users.Commands.UpdateUser
 {
     public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
     {
@@ -31,7 +31,7 @@ namespace Incidents.Application.Incidents.Commands.UserComands.UpdateUeser
             RuleFor(x => x.RoleName)
                 .NotEmpty()
                 .NotNull()
-                .Must(x => roleNames.Contains(x)).WithMessage("Role can only be: " + String.Join(",", roleNames));
+                .Must(x => roleNames.Contains(x)).WithMessage("Role can only be: " + string.Join(",", roleNames));
         }
     }
 }

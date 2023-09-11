@@ -2,7 +2,7 @@
 using Incidents.Application.Common.Mappings;
 using Incidents.Domain.Entities;
 
-namespace Incidents.Application.Incidents.Queries.UserQueries.GetAllUsers
+namespace Incidents.Application.Incidents.Users.Queries.GetAllUsers
 {
     public class GetAllUsersDto : IMapWith<User>
     {
@@ -11,7 +11,6 @@ namespace Incidents.Application.Incidents.Queries.UserQueries.GetAllUsers
         public string FullName { get; set; }
         public string Email { get; set; }
         public bool IsEnabled { get; set; }
-        public bool IsDeleted { get; set; }
         public List<string> UserRoles { get; set; }
 
         public void Mapping(Profile profile)
@@ -21,8 +20,7 @@ namespace Incidents.Application.Incidents.Queries.UserQueries.GetAllUsers
                 .ForMember(x => x.UserName, option => option.MapFrom(x => x.UserName))
                 .ForMember(x => x.FullName, option => option.MapFrom(x => x.FullName))
                 .ForMember(x => x.Email, option => option.MapFrom(x => x.Email))
-                .ForMember(x => x.IsEnabled, option => option.MapFrom(x => x.IsEnabled))
-                .ForMember(x => x.IsDeleted, option => option.MapFrom(x => x.IsDeleted));
+                .ForMember(x => x.IsEnabled, option => option.MapFrom(x => x.IsEnabled));
         }
     }
 }
