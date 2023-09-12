@@ -37,7 +37,7 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddScoped<IValidator<CreateUserDto>, CreateUserDtoValidator>();
-builder.Services.AddScoped<IValidator<UpdateUserCommand>, UpdateUserCommandValidator>();
+builder.Services.AddScoped<IValidator<UpdateUserDto>, UpdateUserDtoValidator>();
 builder.Services.AddScoped<IValidator<GetAllUsersDto>, GetAllUsersDtoValidator>();
 builder.Services.AddScoped<IValidator<GetUserByUserNameQuery>, GetUserByUserNameQueryValidator>();
 

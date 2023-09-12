@@ -19,7 +19,7 @@ namespace Incidents.Infrastructure.EntityTypeConfiguration
                 .WithMany(x => x.UserRoles)
                 .HasForeignKey(x => x.RoleId);
 
-            builder.HasData(IncidentsDbContextSeed.RoleAdmin, IncidentsDbContextSeed.RoleUser);
+            builder.HasData(IncidentsDbContextSeed.RoleAdmin);
         }
     }
 }

@@ -20,21 +20,10 @@ namespace Incidents.Infrastructure
             Email = "admin@mail.com",
             IsEnabled = true,
         };
-
-        public static readonly User User = new User
-        {
-            Id = 2,
-            UserName = "cr00002",
-            Password = "04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb",
-            FullName = "User",
-            Email = "user@mail.com",
-            IsEnabled = true,
-        };
         #endregion
 
         #region UserRole
         public static readonly UserRole RoleAdmin = new UserRole { UserId = Admin.Id, RoleId = AdminRole.Id };
-        public static readonly UserRole RoleUser = new UserRole { UserId = User.Id, RoleId = UserRole.Id };
         //public static readonly UserRole RoleAdmin3 = new UserRole { UserId = Admin.Id, RoleId = UserRole.Id };
         #endregion
 

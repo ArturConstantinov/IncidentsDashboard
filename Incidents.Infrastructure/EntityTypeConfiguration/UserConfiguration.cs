@@ -31,7 +31,7 @@ namespace Incidents.Infrastructure.EntityTypeConfiguration
             builder.Property(user => user.IsEnabled)
                 .HasDefaultValue(true);
 
-            builder.HasData(IncidentsDbContextSeed.Admin, IncidentsDbContextSeed.User);
+            builder.HasData(IncidentsDbContextSeed.Admin);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Incidents.Application.Incidents.Queries.UserQueries.GetUserById
         public string FullName { get; set; }
         public string Email { get; set; }
         public bool IsEnabled { get; set; }
-        public List<string> UserRoles { get; set; } = new List<string>();
+        public List<int> UserRoles { get; set; } = new List<int>();
 
         public void Mapping(Profile profile)
         {

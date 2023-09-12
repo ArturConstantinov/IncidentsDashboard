@@ -36,6 +36,11 @@ namespace Incidents.Application.Incidents.Users.Commands.CreateUser
                 return 0;
             }
 
+            if (request.UserDto.Password != request.UserDto.ConfirmPassword)
+            {
+                return 0;
+            }
+
             string encrypted = "";
             using (SHA256 hash = SHA256.Create())
             {
@@ -49,6 +54,7 @@ namespace Incidents.Application.Incidents.Users.Commands.CreateUser
                 CreatedBy = request.UserDto.CreatedBy,
                 Created = DateTime.UtcNow,
                 UserName = request.UserDto.UserName,
+                FullName = request.UserDto.FullName,
                 Password = encrypted,
                 Email = request.UserDto.Email,
                 IsEnabled = false,
@@ -56,17 +62,6 @@ namespace Incidents.Application.Incidents.Users.Commands.CreateUser
             };
 
             await _context.Users.AddAsync(user, cancellationToken);
-
-            //var userRole = new UserRole
-            //{
-            //    UserId = user.Id,
-            //    RoleId = await _context.Roles
-            //        .Where(x => x.Name.ToLower() == "user")
-            //        .Select(x => x.Id)
-            //        .FirstOrDefaultAsync()
-            //};
-
-            //await _context.UserRoles.AddAsync(userRole, cancellationToken);
 
             return await _context.SaveChangesAsync(cancellationToken);
         }

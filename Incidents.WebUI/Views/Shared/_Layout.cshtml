@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Incidents.WebUI.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/DataTables/datatables.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ContextMenu/jquery.contextMenu.min.css">
 </head>
 <body>
     <header>
@@ -48,16 +49,16 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/DataTables/datatables.min.js"></script>
     <script type="text/javascript" src="~/DataTables/DataTables-1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="~/ContextMenu/jquery.contextMenu.min.js"></script>
+    <script type="text/javascript" src="~/ContextMenu/jquery.ui.position.js"></script>
     <script type="text/javascript" src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script type="text/javascript" src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
     <script>
         function loadListUsers() {
-            console.log("Loaded");
-
             $(".dataTables_length").addClass("bs-select");
 
-            $('#userTable').DataTable({
+            let table = $('#userTable').DataTable({
                 processing: true,
                 serverSide: true,
                 scrollX: true,
@@ -75,6 +76,30 @@
                     { data: 'isEnabled' }
                 ]
             });
+            let contextmenu = $('#userTable').contextMenu({
+                selector: "tr",
+                trigger: "right",
+                callback: function (key, options){
+                    console.log(table);
+                    console.log(table.rows());
+                    let row = table.row(options.$trigger);
+                    console.log(row.data());
+                    switch (key) {
+                        case "details":
+                            goToUserDetailsPage(row.data()["id"]);
+                            break;
+                        case "edit":
+                            goToUserEditPage(row.data()["id"]);
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                items: {
+                    "edit": {name: "Edit"},
+                    "details": {name: "Detais"}
+                }
+            })
         }
 
 
@@ -124,6 +149,99 @@
                 }
             })
         };
+
+        function createUser() {
+            var form = $("#createUserForm");
+            if (form.valid()) {
+                var url = form.attr('action');
+
+                $.ajax({
+                    url: url,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    data: form.serialize(),
+                    type: "POST",
+                    success: function (response) {
+                        $('#contentDiv').html(null);
+                        $('#contentDiv').html(response);
+                        $("form").removeData("validator");
+                        $("form").removeData("unobtrusiveValidation");
+                        $.validator.unobtrusive.parse("form");
+                        loadListUsers();
+                    },
+                    error: function (error) {
+                        $('#contentDiv').html(null);
+                        $('#contentDiv').html(error);
+                        $("form").removeData("validator");
+                        $("form").removeData("unobtrusiveValidation");
+                        $.validator.unobtrusive.parse("form");
+                    }
+                });
+            }
+        }
+        function goToUserEditPage(userId) {
+            $.ajax({
+                url: "@Url.Action("GetEditUser","User")",
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: {
+                    userId: userId
+                },
+                method: "GET",
+                success: function (response){
+                    $('#contentDiv').html(response);
+                    $("form").removeData("validator");
+                    $("form").removeData("unobtrusiveValidation");
+                    $.validator.unobtrusive.parse("form");
+                }
+            });
+        }
+
+        function goToUserDetails(userId) {
+            $.ajax({
+                url: "@Url.Action("UserDetails","User")",
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: {
+                    userId: userId
+                },
+                method: "GET",
+                success: function (response) {
+                    $('#contentDiv').html(response);
+                }
+            });
+        }
+
+        function editUser(userId){
+            var form = $("#editUserForm");
+            if (form.valid()) {
+                var url = form.attr('action');
+
+                $.ajax({
+                    url: url,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    data: form.serialize(),
+                    method: "POST",
+                    success: function(response){
+                        $('#contentDiv').html(response);
+                        $("form").removeData("validator");
+                        $("form").removeData("unobtrusiveValidation");
+                        $.validator.unobtrusive.parse("form");
+                    },
+                    error: function(response){
+                        $('#contentDiv').html(response);
+                        $("form").removeData("validator");
+                        $("form").removeData("unobtrusiveValidation");
+                        $.validator.unobtrusive.parse("form");
+                    }
+                });
+            }
+        }
 
     </script>
     @await RenderSectionAsync("Scripts", required: false)

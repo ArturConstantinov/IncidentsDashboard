@@ -1,15 +1,17 @@
 ﻿using MediatR;
 
-namespace Incidents.Application.Incidents.Users.Commands.CreateUser
+namespace Incidents.Application.Incidents.Users.Commands.UpdateUser
 {
-    public class CreateUserDto : IRequest
+    public class UpdateUserDto : IRequest
     {
-        public int CreatedBy { get; set; }
+        public int Id { get; set; }
+        public int LastModifiedBy { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
+        public bool IsEnabled { get; set; }
         public List<int> RolesId { get; set; }
     }
 }

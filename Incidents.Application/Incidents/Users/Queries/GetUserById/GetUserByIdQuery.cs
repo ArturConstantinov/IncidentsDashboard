@@ -31,7 +31,7 @@ namespace Incidents.Application.Incidents.Users.Queries.GetUserById
                     FullName = x.FullName,
                     Email = x.Email,
                     IsEnabled = x.IsEnabled,
-                    UserRoles = x.UserRoles.Where(u => u.UserId == request.UserId).Select(ur => ur.Role.Name).ToList()
+                    UserRoles = x.UserRoles.Where(u => u.UserId == request.UserId).Select(ur => ur.Role.Id).ToList()
                 })
                 .FirstOrDefaultAsync(cancellationToken);
 
