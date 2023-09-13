@@ -180,6 +180,21 @@
                 });
             }
         }
+
+        function updatePasswordSwitch() {
+            var chbox = $("#updatePassword");
+            var pas = $("#Password");
+            var confPas = $("#ConfirmPassword");
+            if (chbox.prop("checked")) {
+                pas.prop("disabled", false);
+                confPas.prop("disabled", false);
+            }
+            else {
+                pas.prop("disabled", true);
+                confPas.prop("disabled", true);
+            }
+        }
+
         function goToUserEditPage(userId) {
             $.ajax({
                 url: "@Url.Action("GetEditUser","User")",
@@ -199,7 +214,7 @@
             });
         }
 
-        function goToUserDetails(userId) {
+        function goToUserDetailsPage(userId) {
             $.ajax({
                 url: "@Url.Action("UserDetails","User")",
                 xhrFields: {
@@ -217,6 +232,7 @@
 
         function editUser(userId){
             var form = $("#editUserForm");
+
             if (form.valid()) {
                 var url = form.attr('action');
 
@@ -227,20 +243,24 @@
                     },
                     data: form.serialize(),
                     method: "POST",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                     success: function(response){
+                        $('#contentDiv').html(null);
                         $('#contentDiv').html(response);
                         $("form").removeData("validator");
                         $("form").removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse("form");
+                        loadListUsers();
                     },
                     error: function(response){
+                        $('#contentDiv').html(null);
                         $('#contentDiv').html(response);
                         $("form").removeData("validator");
                         $("form").removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse("form");
                     }
-                });
-            }
+                })
+            };
         }
 
     </script>

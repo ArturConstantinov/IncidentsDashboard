@@ -1,0 +1,78 @@
+﻿@using Incidents.Application.Incidents.Users.Commands.UpdateUser;
+@{
+    Layout = null;
+}
+@model UpdateUserDto;
+
+<h1 class="display-5">Create User</h1>
+<div class="container col-md-8">
+    @if (ViewBag.Error != null)
+    {
+        @foreach (var error in ViewBag.Error)
+        {
+            <p class="text-danger">@error</p>
+        }
+    }
+    <a onclick="goToUserIndex()" class="btn btn-primary float-end" tabindex="-1" role="button" aria-disabled="true">Back</a>
+    <br />
+    <br />
+    @if (ViewBag.UserDetails != null)
+    {
+        <form class="bg-white" id="detailUserForm" asp-antiforgery="true">
+            <div class="col-sm-12">
+                <div class="form-group row">
+                    <label asp-for="UserName" class="col-sm-3 col-form-label text-end"></label>
+                    <div class="col-sm-9">
+                        <input asp-for="UserName" class="form-control form-control-sm" value="@ViewBag.UserDetails.UserName" disabled/>
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label text-end" asp-for="FullName">Full Name</label>
+                    <div class="col-9">
+                        <input class="form-control form-control-sm" type="text" asp-for="FullName" value="@ViewBag.UserDetails.FullName" disabled/>
+                        <span class="text-danger" asp-validation-for="FullName"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label text-end" asp-for="Email"></label>
+                    <div class="col-9">
+                        <input class="form-control form-control-sm" type="text" asp-for="Email" value="@ViewBag.UserDetails.Email" disabled />
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label text-end" asp-for="IsEnabled">Enabled</label>
+                    <div class="col-9">
+                        <input class="form-control form-control-sm" type="text" asp-for="IsEnabled" value="@ViewBag.UserDetails.IsEnabled" disabled />
+                        <span class="text-danger" asp-validation-for="IsEnabled"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label text-end" asp-for="RolesId">Role</label>
+                    <div class="col-9">
+                        <select class="form-select" asp-for="RolesId" disabled>
+                            @foreach (var role in ViewBag.Roles)
+                            {
+                                if (ViewBag.UserDetails.UserRoles.Contains(role.Id))
+                                {
+                                    <option value="@role.Id">@role.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <span class="text-danger" asp-validation-for="RolesId"></span>
+            </div>
+        </form>
+    }
+
+</div>

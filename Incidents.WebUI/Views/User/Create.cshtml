@@ -21,8 +21,8 @@
     asp-action="CreateUsers" asp-antiforgery="true" method="post">
         <div class="col-sm-12">
             <div class="form-group row">
-                <label asp-for="UserName" class="col-sm-4 col-form-label text-end"></label>
-                <div class="col-sm-8">
+                <label asp-for="UserName" class="col-sm-3 col-form-label text-end"></label>
+                <div class="col-sm-9">
                     <input asp-for="UserName" class="form-control form-control-sm" />
                     <span asp-validation-for="UserName" class="text-danger"></span>
                 </div>
@@ -30,8 +30,8 @@
         </div>
         <div class="col-sm-12">
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label text-end" asp-for="Password"></label>
-                <div class="col-8">
+                <label class="col-sm-3 col-form-label text-end" asp-for="Password"></label>
+                <div class="col-9">
                     <input class="form-control form-control-sm" type="password" asp-for="Password" />
                     <span class="text-danger" asp-validation-for="Password"></span>
                 </div>
@@ -39,8 +39,8 @@
         </div>
         <div class="col-sm-12">
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label text-end" asp-for="ConfirmPassword">Confirm Password</label>
-                <div class="col-8">
+                <label class="col-sm-3 col-form-label text-end" asp-for="ConfirmPassword">Confirm Password</label>
+                <div class="col-9">
                     <input class="form-control form-control-sm" type="password" asp-for="ConfirmPassword" />
                     <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
                 </div>
@@ -48,8 +48,8 @@
         </div>
         <div class="col-sm-12">
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label text-end" asp-for="FullName">Full Name</label>
-                <div class="col-8">
+                <label class="col-sm-3 col-form-label text-end" asp-for="FullName">Full Name</label>
+                <div class="col-9">
                     <input class="form-control form-control-sm" type="text" asp-for="FullName">
                     <span class="text-danger" asp-validation-for="FullName"></span>
                 </div>
@@ -57,8 +57,8 @@
         </div>
         <div class="col-sm-12">
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label text-end" asp-for="Email"></label>
-                <div class="col-8">
+                <label class="col-sm-3 col-form-label text-end" asp-for="Email"></label>
+                <div class="col-9">
                     <input class="form-control form-control-sm" type="text" asp-for="Email">
                     <span class="text-danger" asp-validation-for="Email"></span>
                 </div>
@@ -66,8 +66,8 @@
         </div>
         <div class="col-sm-12">
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label text-end" asp-for="RolesId">Role</label>
-                <div class="col-8">
+                <label class="col-sm-3 col-form-label text-end" asp-for="RolesId">Role</label>
+                <div class="col-9">
                     <select class="form-select" asp-for="RolesId">
                     @foreach (var role in ViewBag.Roles)
                     {

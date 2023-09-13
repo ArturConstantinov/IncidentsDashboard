@@ -24,7 +24,7 @@ namespace Incidents.WebUI.Controllers
         {
             var result = await Mediator.Send(new GetAllUsersQuery(parameters));
 
-            return Json(new
+            return Ok(new
             {
                 draw = parameters.Draw,
                 recordsFiltered = result.Users.Count(),
@@ -73,7 +73,7 @@ namespace Incidents.WebUI.Controllers
         public async Task<IActionResult> GetEditUser(int userId, List<string> errors = null!)
         {
             ViewBag.Error = errors;
-            var userDetails = await Mediator.Send(new GetUserByIdQuery { UserId = userId });
+           var userDetails = await Mediator.Send(new GetUserByIdQuery { UserId = userId });
 
             ViewBag.UserDetails = userDetails;
             ViewBag.UserId = userId;
@@ -86,7 +86,7 @@ namespace Incidents.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditUser(int userId, [FromBody] UpdateUserDto userDto)
+        public async Task<IActionResult> EditUser(int userId, [FromForm] UpdateUserDto userDto)
         {
             userDto.Id = userId;
             userDto.LastModifiedBy = int.Parse(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -107,8 +107,22 @@ namespace Incidents.WebUI.Controllers
 
             await Mediator.Send(new UpdateUserCommand { UserDto = userDto });
 
-            return await GetEditUser(userId);
+            //return await GetEditUser(userId);
+            return View("Index");
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> UserDetails(int userId)
+        {
+            var userDetails = await Mediator.Send(new GetUserByIdQuery { UserId = userId });
+
+            ViewBag.UserDetails = userDetails;
+            ViewBag.UserId = userId;
+            var roles = await Mediator.Send(new GetAllRolesQuery());
+            ViewBag.Roles = roles;
+
+            return View("UserDetails");
+        }
     }
 }

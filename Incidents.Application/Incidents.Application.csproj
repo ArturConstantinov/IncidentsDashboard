@@ -19,9 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Incidents\Commands\UserComands\CreateUser\" />
-    <Folder Include="Incidents\Commands\UserComands\DeleteUser\" />
-    <Folder Include="Incidents\Commands\UserComands\UpdateUeser\" />
     <Folder Include="Incidents\Queries\UserQueries\GetAllUsers\" />
     <Folder Include="Incidents\Queries\UserQueries\GetUserById\" />
     <Folder Include="Incidents\Queries\UserQueries\GetUserByUsername\" />
