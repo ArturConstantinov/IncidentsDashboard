@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Incidents.Application.Common.TableParameters;
+﻿using Incidents.Application.Common.TableParameters;
 using Incidents.Application.Incidents.Queries.RoleQueries.GetAllRoles;
 using Incidents.Application.Incidents.Users.Commands.CreateUser;
 using Incidents.Application.Incidents.Users.Commands.UpdateUser;
@@ -19,12 +18,10 @@ namespace Incidents.WebUI.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator")]//????????
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetAllUsers(DataTablesParameters parameters = null!)
         {
             var result = await Mediator.Send(new GetAllUsersQuery(parameters));
-
-            Console.WriteLine(result.Users.Count());
 
             return Ok(new
             {
@@ -109,7 +106,6 @@ namespace Incidents.WebUI.Controllers
 
             await Mediator.Send(new UpdateUserCommand { UserDto = userDto });
 
-            //return await GetEditUser(userId);
             return View("Index");
         }
 

@@ -18,10 +18,4 @@
     <ProjectReference Include="..\Incidents.Domain\Incidents.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Incidents\Queries\UserQueries\GetAllUsers\" />
-    <Folder Include="Incidents\Queries\UserQueries\GetUserById\" />
-    <Folder Include="Incidents\Queries\UserQueries\GetUserByUsername\" />
-  </ItemGroup>
-
 </Project>

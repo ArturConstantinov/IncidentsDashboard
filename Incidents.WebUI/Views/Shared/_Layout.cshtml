@@ -26,7 +26,34 @@
                         </li>
                         
                     </ul>
-                    <a onclick="goToUserIndex()" class="nav-link text-dark" role="button" aria-disabled="true">Users</a>
+
+                    <div class="dropdown">
+                        <a class="nav-link text-dark dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Administarte
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            @if (ViewBag.Roles == "Administrator")
+                            {
+                                <li><a onclick="goToUserIndex()" class="nav-link text-dark dropdown-item" role="button" aria-disabled="true">Users</a></li>
+                            }
+                            <li><a onclick="goToIncidentsIndex()" class="nav-link text-dark dropdown-item" role="button" aria-disabled="true">Incidents</a></li>
+                            @* <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li> *@
+                        </ul>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @ViewBag.FullName
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">User Name - @ViewBag.UserName</li>
+                            <li class="dropdown-item">Role - @ViewBag.Roles</li>
+                        </ul>
+                    </div>
+
+                    
 
                     <a asp-controller="Account" asp-action="LogOut" class="nav-link text-dark" role="button" aria-disabled="true">Log Out</a>
                 </div>
@@ -55,6 +82,74 @@
     <script type="text/javascript" src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
     <script>
+        $(document).ready(function () {
+            goToIncidentsIndex();
+        });
+
+        function goToIncidentsIndex() { 
+            $.ajax({
+                url: "@Url.Action("Index", "Incident")",
+                xhrFields: {
+                    withCredentials: true
+                },
+                method: "GET",
+                success: function (response) {
+                    $('#contentDiv').html(null);
+                    $('#contentDiv').html(response);
+
+                    loadListIncidents();
+                }
+            })
+        }
+
+        function loadListIncidents() {
+            $(".dataTables_length").addClass("bs-select");
+
+            let table = $('#incidentTable').DataTable({
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                ajax: {
+                    url: "@Url.Action("GetAllIncidents","Incident")",
+                    type: "POST",
+                    data: "json"
+                },
+                columns: [
+                    { data: 'id', visible: false, filter: false },
+                    { data: 'requestNr' },
+                    { data: 'subsystem' },
+                    { data: 'openDate' },
+                    { data: 'closeDate' },
+                    { data: 'type' },
+                    { data: 'urgency' }
+                ]
+            });
+            let contextmenu = $('#incidentTable').contextMenu({
+                selector: "tr",
+                trigger: "right",
+                callback: function (key, options) {
+                    console.log(table);
+                    console.log(table.rows());
+                    let row = table.row(options.$trigger);
+                    console.log(row.data());
+                    switch (key) {
+                        case "details":
+                            goToIncidentDetailsPage(row.data()["id"]);
+                            break;
+                        case "edit":
+                            goToIncidentEditPage(row.data()["id"]);
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                items: {
+                    "edit": { name: "Edit" },
+                    "details": { name: "Detais" }
+                }
+            })
+        }
+
         function loadListUsers() {
             $(".dataTables_length").addClass("bs-select");
 

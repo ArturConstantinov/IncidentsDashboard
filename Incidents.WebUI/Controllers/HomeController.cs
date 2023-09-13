@@ -1,12 +1,12 @@
 ﻿using Incidents.WebUI.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace Incidents.WebUI.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
+    
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -17,6 +17,13 @@ namespace Incidents.WebUI.Controllers
 
         public IActionResult Index()
         {
+            var userName = HttpContext.User.FindFirstValue(ClaimTypes.Name);
+            var fullName = HttpContext.User.FindFirstValue("FullName");
+            var roles = HttpContext.User.FindFirstValue(ClaimTypes.Role);
+
+            ViewBag.UserName = userName;
+            ViewBag.Roles = roles;
+            ViewBag.FullName = fullName;
             return View();
         }
 

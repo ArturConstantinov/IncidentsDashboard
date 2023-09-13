@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="container">
+    <div class="card shadow">
+        <div class="card-header">
+            Incidents
+        </div>
+        <div class="card-body">
+            <a onclick="goToIncidentCreate()" class="btn btn-primary float-end" tabindex="-1" role="button" aria-disabled="true">Create Incident</a>
+            <br />
+            <br />
+            <div class="table-wrapper">
+                <table id="incidentTable" class="data mt-2 table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0" style="width:100%">
+                    <thead class="header">
+                        <tr>
+                            <th>Id</th>
+                            <th>Request Nr.</th>
+                            <th>Subsystem</th>
+                            <th>Open Date</th>
+                            <th>Close Date</th>
+                            <th>Type</th>
+                            <th>Urgency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
