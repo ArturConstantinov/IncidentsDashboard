@@ -80,6 +80,18 @@ namespace Incidents.Application.Incidents.Users.Queries.GetAllUsers
                 })
                 .ToListAsync();
 
+            var usersCount = await usersQuery
+                .Include(x => x.UserRoles)
+                .Where(x => x.UserName.Contains(search)
+                    || x.FullName.ToLower().Contains(search)
+                    || x.Email.ToLower().Contains(search)
+                    || x.IsEnabled.ToString().ToLower().Contains(search)
+                    || x.UserRoles.Any(ur => ur.Role.Name.ToLower().Contains(search)))
+                .CountAsync(cancellationToken);
+
+            request.Parameters.TotalCount = usersCount;
+
+
 
             return new GetAllUsersVm { Users = users };
         }

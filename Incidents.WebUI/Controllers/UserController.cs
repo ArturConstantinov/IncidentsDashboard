@@ -24,11 +24,13 @@ namespace Incidents.WebUI.Controllers
         {
             var result = await Mediator.Send(new GetAllUsersQuery(parameters));
 
+            Console.WriteLine(result.Users.Count());
+
             return Ok(new
             {
                 draw = parameters.Draw,
-                recordsFiltered = result.Users.Count(),
-                recordsTotal = result.Users.Count(),
+                recordsFiltered = parameters.TotalCount,
+                recordsTotal = parameters.TotalCount,
                 data = result.Users
             });
         }
