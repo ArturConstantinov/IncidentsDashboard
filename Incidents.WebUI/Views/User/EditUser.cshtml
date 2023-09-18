@@ -4,7 +4,7 @@
 }
 @model UpdateUserDto;
 
-<h1 class="display-5">Create User</h1>
+<h1 class="display-5 text-center">Edit User</h1>
 <div class="container col-md-8">
     @if (ViewBag.Error != null)
     {
@@ -25,6 +25,14 @@
                     <div class="col-sm-9">
                         <input asp-for="UserName" class="form-control form-control-sm" value="@ViewBag.UserDetails.UserName" />
                         <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group row">
+                    <label class="col-sm-3 form-check-label text-end">Update Password</label>
+                    <div class="col-8 form-check form-switch ms-3">
+                        <input class="form-check-sm form-check-input" type="checkbox" id="updatePassword" onchange="updatePasswordSwitch()">
                     </div>
                 </div>
             </div>
@@ -104,19 +112,12 @@
                     </div>
                 </div>
                 <span class="text-danger" asp-validation-for="RolesId"></span>
-            </div>
+                <br />
 
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 form-check-label text-end">Update Password</label>
-                    <div class="col-8 form-check form-switch ms-3">
-                        <input class="form-check-sm form-check-input" type="checkbox" id="updatePassword" onchange="updatePasswordSwitch()">
-                    </div>
-                </div>
             </div>
         </form>
-        <div class="d-flex justify-content-center">
-            <button id="modifyUserSubmitForm" onclick="editUser(@ViewBag.UserId)" class="btn btn-lg btn-success btn-block mt-3">Edit<i class="fas fa-sign-in-alt"></i></button>
+        <div class="d-flex justify-content-end">
+            <button id="modifyUserSubmitForm" onclick="editUser(@ViewBag.UserId)" class="btn btn-primary">Edit<i class="fas fa-sign-in-alt"></i></button>
         </div>
     }
 

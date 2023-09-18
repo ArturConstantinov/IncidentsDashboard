@@ -21,9 +21,9 @@ namespace Incidents.Domain.Entities
         public string? ThirdParty { get; set; }
         public int? ScenaryId { get; set; }
         public int? ThreatId { get; set; }
-        public IncidentType IncidentType { get; set; }
-        public Scenary Scenary { get; set; }
-        public Threat Threat { get; set; }
+        public IncidentType? IncidentType { get; set; }
+        public Scenary? Scenary { get; set; }
+        public Threat? Threat { get; set; }
 
     }
 }

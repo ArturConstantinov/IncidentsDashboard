@@ -9,11 +9,14 @@ namespace Incidents.Infrastructure.EntityTypeConfiguration
         public void Configure(EntityTypeBuilder<Origin> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.HasIndex(x => x.Name)
-                .IsUnique();
+
             builder.Property(x => x.Name)
                 .HasMaxLength(50)
                 .IsRequired();
+
+            builder.HasData(IncidentsDbContextSeed.Aplication,
+                IncidentsDbContextSeed.External,
+                IncidentsDbContextSeed.Infrastructure);
         }
     }
 }

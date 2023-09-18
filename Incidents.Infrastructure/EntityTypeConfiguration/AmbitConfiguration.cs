@@ -10,12 +10,37 @@ namespace Incidents.Infrastructure.EntityTypeConfiguration
         {
             builder.HasKey(x => x.Id)
                 .IsClustered(false);
+
             builder.HasIndex(x => x.Name)
-                .IsClustered(true)
-                .IsUnique();
+                .IsClustered(true);
+
             builder.Property(x => x.Name)
                 .HasMaxLength(50)
                 .IsRequired();
+
+            builder.HasData(
+                IncidentsDbContextSeed.SoftwareA,
+                IncidentsDbContextSeed.FunctionalityA,
+                IncidentsDbContextSeed.PhaseA,
+                IncidentsDbContextSeed.Release,
+                IncidentsDbContextSeed.Service,
+                IncidentsDbContextSeed.FunctionalityE,
+                IncidentsDbContextSeed.SoftwareE,
+                IncidentsDbContextSeed.TransmissionChannels,
+                IncidentsDbContextSeed.CICS,
+                IncidentsDbContextSeed.Database,
+                IncidentsDbContextSeed.PhaseI,
+                IncidentsDbContextSeed.HardwareHost,
+                IncidentsDbContextSeed.HardwareOpen,
+                IncidentsDbContextSeed.Middleware,
+                IncidentsDbContextSeed.Networks,
+                IncidentsDbContextSeed.Security,
+                IncidentsDbContextSeed.SoftwareI,
+                IncidentsDbContextSeed.BasicHostSoftware,
+                IncidentsDbContextSeed.OpenBasicSoftware,
+                IncidentsDbContextSeed.ServiceSoftware,
+                IncidentsDbContextSeed.Storage
+                );
         }
     }
 }

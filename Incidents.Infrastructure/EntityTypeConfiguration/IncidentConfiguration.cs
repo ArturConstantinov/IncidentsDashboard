@@ -37,16 +37,25 @@ namespace Incidents.Infrastructure.EntityTypeConfiguration
                 .IsRequired();
 
             builder.Property(x => x.ProblemSummery)
-                .HasMaxLength(100)
+                .HasMaxLength(250)
                 .IsRequired();
 
             builder.Property(x => x.ProblemDescription)
-                .HasMaxLength(250)
+                .HasMaxLength(350)
                 .IsRequired();
 
             builder.Property(x => x.Solution)
-                .HasMaxLength(250)
+                .HasMaxLength(350)
                 .IsRequired();
+
+            builder.Property(x => x.ThirdParty)
+                .HasMaxLength(50);
+
+            builder.HasIndex(x => x.ScenaryId)
+                .IsUnique(false);
+
+            builder.HasIndex(x => x.ThreatId)
+                .IsUnique(false);
 
             //builder.Property(x => x.IsEnabled)
             //    .HasDefaultValue(true);

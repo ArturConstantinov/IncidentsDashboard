@@ -42,14 +42,141 @@ namespace Incidents.Infrastructure.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("Name");
 
                     SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("Name"));
 
                     b.HasIndex("OriginId");
 
                     b.ToTable("Ambits");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Software",
+                            OriginId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Functionality",
+                            OriginId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Phase",
+                            OriginId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Release",
+                            OriginId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Service",
+                            OriginId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Functionality",
+                            OriginId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Software",
+                            OriginId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Transmission Channels",
+                            OriginId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "CICS",
+                            OriginId = 3
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Database",
+                            OriginId = 3
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Phase",
+                            OriginId = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Hardware Host",
+                            OriginId = 3
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Hardware Open",
+                            OriginId = 3
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Middleware",
+                            OriginId = 3
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "Networks",
+                            OriginId = 3
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "Security",
+                            OriginId = 3
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "Software",
+                            OriginId = 3
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "Basic Host Software",
+                            OriginId = 3
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "Open Basic Software",
+                            OriginId = 3
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "Service Software",
+                            OriginId = 3
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Name = "Storage",
+                            OriginId = 3
+                        });
                 });
 
             modelBuilder.Entity("Incidents.Domain.Entities.Incident", b =>
@@ -94,13 +221,13 @@ namespace Incidents.Infrastructure.Migrations
 
                     b.Property<string>("ProblemDescription")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasMaxLength(350)
+                        .HasColumnType("nvarchar(350)");
 
                     b.Property<string>("ProblemSummery")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("RequestNr")
                         .IsRequired()
@@ -112,8 +239,8 @@ namespace Incidents.Infrastructure.Migrations
 
                     b.Property<string>("Solution")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasMaxLength(350)
+                        .HasColumnType("nvarchar(350)");
 
                     b.Property<string>("SubCause")
                         .IsRequired()
@@ -125,7 +252,8 @@ namespace Incidents.Infrastructure.Migrations
                         .HasColumnType("nvarchar(2)");
 
                     b.Property<string>("ThirdParty")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("ThreatId")
                         .HasColumnType("int");
@@ -157,16 +285,22 @@ namespace Incidents.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
+                            AmbitId = 3,
                             ApplicationType = "Application Type",
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 0,
+                            IncidentTypeId = 1,
                             OpenDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OriginId = 1,
                             ProblemDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                             ProblemSummery = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                             RequestNr = "host00007415837",
+                            ScenaryId = 1,
                             Solution = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                             SubCause = "definition change",
                             Subsystem = "cr",
+                            ThirdParty = "AAA1",
+                            ThreatId = 1,
                             Type = "Request Intervention",
                             Urgency = "Hight"
                         });
@@ -194,12 +328,301 @@ namespace Incidents.Infrastructure.Migrations
 
                     b.HasIndex("AmbitId");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("Name");
 
                     SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("Name"));
 
                     b.ToTable("IncidentTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AmbitId = 3,
+                            Name = "Configuration"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AmbitId = 3,
+                            Name = "Software Malfunction"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AmbitId = 11,
+                            Name = "Configuration"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AmbitId = 11,
+                            Name = "Software Malfunction"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AmbitId = 2,
+                            Name = "Software Malfunction"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AmbitId = 6,
+                            Name = "Third Parts"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AmbitId = 4,
+                            Name = "Incorrect Change"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AmbitId = 1,
+                            Name = "Incorrect Change"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AmbitId = 1,
+                            Name = "Code"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AmbitId = 1,
+                            Name = "Configuration"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            AmbitId = 1,
+                            Name = "Resource Saturation"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            AmbitId = 7,
+                            Name = "Third Parts"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            AmbitId = 17,
+                            Name = "Insufficient Resources"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            AmbitId = 5,
+                            Name = "Third Parts"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            AmbitId = 8,
+                            Name = "Software Malfunction"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            AmbitId = 8,
+                            Name = "Insufficient Resources"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            AmbitId = 8,
+                            Name = "Configuration"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            AmbitId = 9,
+                            Name = "Hardware Malfunction"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            AmbitId = 9,
+                            Name = "Configuration"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            AmbitId = 10,
+                            Name = "Degradation"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            AmbitId = 10,
+                            Name = "Hardware Malfunction"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            AmbitId = 10,
+                            Name = "Software Malfunction"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            AmbitId = 10,
+                            Name = "Insufficient Resources"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            AmbitId = 12,
+                            Name = "Insufficient Resources"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            AmbitId = 12,
+                            Name = "Resource Saturation"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            AmbitId = 13,
+                            Name = "Incorrect Change"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            AmbitId = 13,
+                            Name = "Block"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            AmbitId = 13,
+                            Name = "Degradation"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            AmbitId = 13,
+                            Name = "Insufficient Resources"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            AmbitId = 14,
+                            Name = "Incorrect Change"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            AmbitId = 14,
+                            Name = "Software Malfunction"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            AmbitId = 14,
+                            Name = "Insufficient Resources"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            AmbitId = 14,
+                            Name = "Resource Saturation"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            AmbitId = 15,
+                            Name = "Incorrect Change"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            AmbitId = 16,
+                            Name = "Accesses"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            AmbitId = 16,
+                            Name = "Cyber Attacks"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            AmbitId = 16,
+                            Name = "Certificates"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            AmbitId = 16,
+                            Name = "Configuration"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            AmbitId = 16,
+                            Name = "Firewall"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            AmbitId = 16,
+                            Name = "IDM"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            AmbitId = 16,
+                            Name = "Patching"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            AmbitId = 18,
+                            Name = "Insufficient Resources"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            AmbitId = 19,
+                            Name = "Insufficient Resources"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            AmbitId = 19,
+                            Name = "Resource Saturation"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            AmbitId = 20,
+                            Name = "Block"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            AmbitId = 20,
+                            Name = "Degradation"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            AmbitId = 20,
+                            Name = "Resource Saturation"
+                        },
+                        new
+                        {
+                            Id = 48,
+                            AmbitId = 21,
+                            Name = "Resource Saturation"
+                        });
                 });
 
             modelBuilder.Entity("Incidents.Domain.Entities.Origin", b =>
@@ -217,10 +640,24 @@ namespace Incidents.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("Origins");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Application"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "External"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Infrastructure"
+                        });
                 });
 
             modelBuilder.Entity("Incidents.Domain.Entities.Role", b =>
@@ -282,11 +719,29 @@ namespace Incidents.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Scenarios");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "A1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "A2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "A3"
+                        });
                 });
 
             modelBuilder.Entity("Incidents.Domain.Entities.Threat", b =>
@@ -299,11 +754,29 @@ namespace Incidents.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Threats");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "AA1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "AA2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "AA3"
+                        });
                 });
 
             modelBuilder.Entity("Incidents.Domain.Entities.User", b =>
@@ -371,17 +844,6 @@ namespace Incidents.Infrastructure.Migrations
                             IsEnabled = true,
                             Password = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
                             UserName = "cr00001"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 0,
-                            Email = "user@mail.com",
-                            FullName = "User",
-                            IsEnabled = true,
-                            Password = "04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb",
-                            UserName = "cr00002"
                         });
                 });
 
@@ -404,11 +866,6 @@ namespace Incidents.Infrastructure.Migrations
                         {
                             UserId = 1,
                             RoleId = 1
-                        },
-                        new
-                        {
-                            UserId = 2,
-                            RoleId = 3
                         });
                 });
 

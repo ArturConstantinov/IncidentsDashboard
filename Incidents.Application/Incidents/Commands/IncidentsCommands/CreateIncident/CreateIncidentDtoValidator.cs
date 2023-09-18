@@ -2,7 +2,7 @@
 
 namespace Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncident
 {
-    partial class CreateIncidentDtoValidator :AbstractValidator<CreateIncidentDto>
+    public class CreateIncidentDtoValidator : AbstractValidator<CreateIncidentDto>
     {
         public CreateIncidentDtoValidator()
         {
@@ -11,8 +11,11 @@ namespace Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncid
                 .Length(17).WithMessage("RequestNr must heve 17 characters");
 
             RuleFor(x => x.Subsystem)
-                .NotEmpty().WithMessage("Subsystem cannot be empty")
+                //.NotEmpty().WithMessage("Subsystem cannot be empty")
                 .Length(2).WithMessage("Subsystem must heve 2 characters");
+
+            RuleFor(x => x.OpenDate)
+                .NotEmpty().WithMessage("Date cannot be empty");
 
             RuleFor(x => x.Type)
                 .NotEmpty().WithMessage("Type cannot be empty")
@@ -31,15 +34,19 @@ namespace Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncid
 
             RuleFor(x => x.ProblemSummery)
                 .NotEmpty().WithMessage("Problem Summery cannot be empty")
-                .MaximumLength(100).WithMessage("Problem Summery should be less then 100 characters");
+                .MaximumLength(250).WithMessage("Problem Summery should be less then 250 characters");
 
             RuleFor(x => x.ProblemDescription)
                 .NotEmpty().WithMessage("Problem Description cannot be empty")
-                .MaximumLength(250).WithMessage("Problem Description should be less then 250 characters");
+                .MaximumLength(350).WithMessage("Problem Description should be less then 350 characters");
 
             RuleFor(x => x.Solution)
                 .NotEmpty().WithMessage("Solution cannot be empty")
-                .MaximumLength(250).WithMessage("Solution should be less then 250 characters");
+                .MaximumLength(350).WithMessage("Solution should be less then 350 characters");
+
+            RuleFor(x => x.ThirdParty)
+                .MaximumLength(50).WithMessage("Third Party name should be less then 50 characters");
+
         }
     }
 }

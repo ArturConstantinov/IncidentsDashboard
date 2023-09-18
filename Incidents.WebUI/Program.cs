@@ -1,12 +1,7 @@
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Incidents.Application;
 using Incidents.Application.Common.Interfaces;
 using Incidents.Application.Common.Mappings;
-using Incidents.Application.Incidents.Users.Commands.CreateUser;
-using Incidents.Application.Incidents.Users.Commands.UpdateUser;
-using Incidents.Application.Incidents.Users.Queries.GetAllUsers;
-using Incidents.Application.Incidents.Users.Queries.GetUserByUserName;
 using Incidents.Infrastructure;
 using Incidents.WebUI.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -36,10 +31,8 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddFluentValidationClientsideAdapters();
-builder.Services.AddScoped<IValidator<CreateUserDto>, CreateUserDtoValidator>();
-builder.Services.AddScoped<IValidator<UpdateUserDto>, UpdateUserDtoValidator>();
-builder.Services.AddScoped<IValidator<GetAllUsersDto>, GetAllUsersDtoValidator>();
-builder.Services.AddScoped<IValidator<GetUserByUserNameQuery>, GetUserByUserNameQueryValidator>();
+//builder.Services.AddScoped<IValidator<CreateUserDto>, CreateUserDtoValidator>();
+//builder.Services.AddScoped<IValidator<UpdateUserDto>, UpdateUserDtoValidator>();
 
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();

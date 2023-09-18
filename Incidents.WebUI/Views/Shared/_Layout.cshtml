@@ -14,48 +14,49 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Incidents</a>
+                @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Incidents</a> *@
+                <a class="navbar-brand" role="button" onclick="goToIncidentsIndex()">Incidents</a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        
                     </ul>
+                    @if (ViewBag.Roles == "Administrator")
+                    {
+                        <div class="dropdown">
+                            <a class="nav-link text-dark dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Administarte
+                            </a>
 
-                    <div class="dropdown">
-                        <a class="nav-link text-dark dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Administarte
-                        </a>
+                            <ul class="dropdown-menu">
 
-                        <ul class="dropdown-menu">
-                            @if (ViewBag.Roles == "Administrator")
-                            {
                                 <li><a onclick="goToUserIndex()" class="nav-link text-dark dropdown-item" role="button" aria-disabled="true">Users</a></li>
-                            }
-                            <li><a onclick="goToIncidentsIndex()" class="nav-link text-dark dropdown-item" role="button" aria-disabled="true">Incidents</a></li>
-                            @* <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li> *@
-                        </ul>
-                    </div>
+                            </ul>
+
+
+                        </div>
+                    }
 
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             @ViewBag.FullName
                         </button>
                         <ul class="dropdown-menu">
-                            <li class="dropdown-item">User Name - @ViewBag.UserName</li>
-                            <li class="dropdown-item">Role - @ViewBag.Roles</li>
+                            <li class="dropdown-item">@ViewBag.UserName</li>
+                            <li>
+                                <a asp-controller="Account" asp-action="LogOut" class="nav-link text-dark dropdown-item" role="button" aria-disabled="true">
+                                    Log Out
+                                </a>
+                            </li>
                         </ul>
                     </div>
 
-                    
 
-                    <a asp-controller="Account" asp-action="LogOut" class="nav-link text-dark" role="button" aria-disabled="true">Log Out</a>
+
+
                 </div>
             </div>
         </nav>
@@ -68,7 +69,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - Incidents.WebUI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - Incidents
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -84,9 +85,10 @@
     <script>
         $(document).ready(function () {
             goToIncidentsIndex();
+            // selectOptions();
         });
 
-        function goToIncidentsIndex() { 
+        function goToIncidentsIndex() {
             $.ajax({
                 url: "@Url.Action("Index", "Incident")",
                 xhrFields: {
@@ -139,15 +141,141 @@
                         case "edit":
                             goToIncidentEditPage(row.data()["id"]);
                             break;
+                        case "delete":
+                            deleteIncident(row.data()["id"]);
+                            table.ajax.reload();
                         default:
                             break;
                     }
                 },
                 items: {
                     "edit": { name: "Edit" },
-                    "details": { name: "Detais" }
+                    "details": { name: "Detais" },
+                    "delete": { name: "Delete" }
                 }
             })
+        }
+
+        function deleteIncident(incidentId) {
+            $.ajax({
+                url: "/Incident/DeleteIncident?IncidentId=" + incidentId,
+                type: "POST",
+                async: false,
+                done: function (result) {
+                    console.log(result);
+                }
+            });
+        }
+
+        function goToIncidentDetailsPage(incidentId) {
+            $.ajax({
+                url: "@Url.Action("IncidentDetails","Incident")",
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: {
+                    incidentId: incidentId
+                },
+                method: "GET",
+                success: function (response) {
+                    $('#contentDiv').html(response);
+                }
+            });
+        }
+
+        function goToIncidentCreate() {
+            $.ajax({
+                url: "@Url.Action("GetCreateIncident", "Incident")",
+                xhrFields: {
+                    withCredentials: true
+                },
+                method: "GET",
+                success: function (response) {
+                    $('#contentDiv').html(null);
+                    $('#contentDiv').html(response);
+                    $("form").removeData("validator");
+                    $("form").removeData("unobtrusiveValidation");
+                    $.validator.unobtrusive.parse("form");
+                }
+            })
+
+
+        }
+
+        function selectOptions() {
+            $("#originSelect").change(function () {
+                var selectedOriginId = $(this).val();
+                if (selectedOriginId) {
+                    $.ajax({
+                        async: true,
+                        url: '/Incident/GetAmbits',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { originId: selectedOriginId },
+                        success: function (data) {
+                            $("#ambitSelect").empty();
+                            $.each(data, function (i, value) {
+                                $('#ambitSelect').append(new Option(value.name, value.id));
+                            });
+                            $('#ambitSelect').prop('disabled', data.length === 0);
+                        }
+                    });
+                } else {
+                    $("#ambitSelect").empty();
+                    $("#incidentTypeSelect").empty();
+                }
+            });
+
+            $("#ambitSelect").change(function () {
+                var selectedAmbitId = $(this).val();
+                if (selectedAmbitId) {
+                    $.ajax({
+                        url: '/Incident/GetIncidentTypes',
+                        type: 'GET',
+                        data: { ambitId: selectedAmbitId },
+                        success: function (data) {
+                            $("#incidentTypeSelect").empty();
+                            $.each(data, function (i, value) {
+                                $("#incidentTypeSelect").append(new Option(value.name, value.id));
+                            });
+                            $('#incidentTypeSelect').prop('disabled', data.length === 0);
+                        }
+                    });
+                } else {
+                    $("#incidentTypeSelect").empty();
+                }
+            });
+        }
+
+        function createIncident() {
+            var form = $("#createIncidentForm");
+            if (form.valid()) {
+                var url = form.attr('action');
+
+                $.ajax({
+                    url: url,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    data: form.serialize(),
+                    type: "POST",
+                    success: function (response) {
+                        $('#contentDiv').html(null);
+                        $('#contentDiv').html(response);
+                        $("form").removeData("validator");
+                        $("form").removeData("unobtrusiveValidation");
+                        $.validator.unobtrusive.parse("form");
+                        loadListIncidents();
+                    },
+                    error: function (error) {
+                        $('#contentDiv').html(null);
+                        $('#contentDiv').html(error);
+                        $("form").removeData("validator");
+                        $("form").removeData("unobtrusiveValidation");
+                        $.validator.unobtrusive.parse("form");
+                    }
+                });
+            }
         }
 
         function loadListUsers() {
@@ -158,12 +286,12 @@
                 serverSide: true,
                 scrollX: true,
                 ajax: {
-                url: "@Url.Action("GetAllUsers","User")",
+                    url: "@Url.Action("GetAllUsers","User")",
                     type: "POST",
                     data: "json"
                 },
                 columns: [
-                    { data: 'id', visible :false, filter: false},
+                    { data: 'id', visible: false, filter: false },
                     { data: 'userName' },
                     { data: 'fullName' },
                     { data: 'email' },
@@ -174,7 +302,7 @@
             let contextmenu = $('#userTable').contextMenu({
                 selector: "tr",
                 trigger: "right",
-                callback: function (key, options){
+                callback: function (key, options) {
                     console.log(table);
                     console.log(table.rows());
                     let row = table.row(options.$trigger);
@@ -191,21 +319,21 @@
                     }
                 },
                 items: {
-                    "edit": {name: "Edit"},
-                    "details": {name: "Detais"}
+                    "edit": { name: "Edit" },
+                    "details": { name: "Detais" }
                 }
             })
         }
 
 
-        function goToUserIndex(){
+        function goToUserIndex() {
             $.ajax({
                 url: "@Url.Action("Index", "User")",
                 xhrFields: {
                     withCredentials: true
                 },
                 method: "GET",
-                success: function (response) { 
+                success: function (response) {
                     $('#contentDiv').html(null);
                     $('#contentDiv').html(response);
 
@@ -300,7 +428,7 @@
                     userId: userId
                 },
                 method: "GET",
-                success: function (response){
+                success: function (response) {
                     $('#contentDiv').html(response);
                     $("form").removeData("validator");
                     $("form").removeData("unobtrusiveValidation");
@@ -325,7 +453,7 @@
             });
         }
 
-        function editUser(userId){
+        function editUser(userId) {
             var form = $("#editUserForm");
 
             if (form.valid()) {
@@ -339,7 +467,7 @@
                     data: form.serialize(),
                     method: "POST",
                     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-                    success: function(response){
+                    success: function (response) {
                         $('#contentDiv').html(null);
                         $('#contentDiv').html(response);
                         $("form").removeData("validator");
@@ -347,7 +475,7 @@
                         $.validator.unobtrusive.parse("form");
                         loadListUsers();
                     },
-                    error: function(response){
+                    error: function (response) {
                         $('#contentDiv').html(null);
                         $('#contentDiv').html(response);
                         $("form").removeData("validator");

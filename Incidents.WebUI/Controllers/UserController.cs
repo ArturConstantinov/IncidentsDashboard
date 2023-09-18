@@ -28,7 +28,7 @@ namespace Incidents.WebUI.Controllers
                 draw = parameters.Draw,
                 recordsFiltered = parameters.TotalCount,
                 recordsTotal = parameters.TotalCount,
-                data = result.Users
+                data = result
             });
         }
 

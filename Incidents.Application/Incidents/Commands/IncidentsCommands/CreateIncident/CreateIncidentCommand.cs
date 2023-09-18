@@ -31,7 +31,7 @@ namespace Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncid
                 CreatedBy = request.Dto.CreatedBy,
                 RequestNr = request.Dto.RequestNr,
                 Subsystem = request.Dto.Subsystem,
-                OpenDate = DateTime.UtcNow,
+                OpenDate = request.Dto.OpenDate,
                 Type = request.Dto.Type,
                 ApplicationType = request.Dto.ApplicationType,
                 Urgency = request.Dto.Urgency,
@@ -42,6 +42,7 @@ namespace Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncid
                 IncidentType = await _context.IncidentTypes.Where(x => x.Id == request.Dto.IncidentTypeId).FirstOrDefaultAsync(cancellationToken),
                 AmbitId = request.Dto.AmbitId,
                 OriginId = request.Dto.OriginId,
+                ThirdParty = request.Dto.ThirdParty,
                 Scenary = await _context.Scenarios.Where(x => x.Id == request.Dto.ScenaryId).FirstOrDefaultAsync(cancellationToken),
                 Threat = await _context.Threats.Where(x => x.Id == request.Dto.ThreatId).FirstOrDefaultAsync(cancellationToken)
             };

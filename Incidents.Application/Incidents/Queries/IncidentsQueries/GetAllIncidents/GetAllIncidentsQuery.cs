@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace Incidents.Application.Incidents.Queries.IncidentsQueries.GetAllIncidents
 {
-    public class GetAllIncidentsQuery : IRequest<GetAllIncidentsVm>
+    public class GetAllIncidentsQuery : IRequest<List<GetAllIncidentsVm>>
     {
         public DataTablesParameters Parameters { get; set; }
 
@@ -17,7 +17,7 @@ namespace Incidents.Application.Incidents.Queries.IncidentsQueries.GetAllInciden
         }
     }
 
-    public class GetAllIncidentsQueryHandler : IRequestHandler<GetAllIncidentsQuery, GetAllIncidentsVm>
+    public class GetAllIncidentsQueryHandler : IRequestHandler<GetAllIncidentsQuery, List<GetAllIncidentsVm>>
     {
         private readonly IIncidentsDbContext _context;
 
@@ -26,7 +26,7 @@ namespace Incidents.Application.Incidents.Queries.IncidentsQueries.GetAllInciden
             _context = context;
         }
 
-        public async Task<GetAllIncidentsVm> Handle(GetAllIncidentsQuery request, CancellationToken cancellationToken)
+        public async Task<List<GetAllIncidentsVm>> Handle(GetAllIncidentsQuery request, CancellationToken cancellationToken)
         {
             string orderColumn = request.Parameters.Columns[request.Parameters.Order[0].Column].Name;
             string search = request.Parameters.Search.Value ?? "";
@@ -62,7 +62,7 @@ namespace Incidents.Application.Incidents.Queries.IncidentsQueries.GetAllInciden
                 || x.Urgency.ToLower().Contains(search))
                 .Skip(request.Parameters.Start)
                 .Take(request.Parameters.Length)
-                .Select(x => new GetAllIncidentsDto
+                .Select(x => new GetAllIncidentsVm
                 {
                     Id = x.Id,
                     RequestNr = x.RequestNr,
@@ -85,7 +85,7 @@ namespace Incidents.Application.Incidents.Queries.IncidentsQueries.GetAllInciden
 
             request.Parameters.TotalCount = incidentsCount;
 
-            return new GetAllIncidentsVm { Incidents = incidents };
+            return incidents;
         }
     }
 }

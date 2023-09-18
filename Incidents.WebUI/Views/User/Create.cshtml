@@ -68,7 +68,7 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-end" asp-for="RolesId">Role</label>
                 <div class="col-9">
-                    <select class="form-select" asp-for="RolesId">
+                    <select class="form-select form-select-sm" asp-for="RolesId">
                     @foreach (var role in ViewBag.Roles)
                     {
                         @if (1 == role.Id)
@@ -83,12 +83,11 @@
                     </select>
                 </div>
             </div>
-
+            <br />
             <span class="text-danger" asp-validation-for="RolesId"></span>
-            <br>
         </div>
     </form>
-    <div class="d-flex justify-content-center">
-        <button onclick="createUser()" class="btn btn-lg btn-success btn-block mt-3">Create<i class="fas fa-sign-in-alt"></i></button>
+    <div class="d-flex justify-content-end">
+        <button onclick="createUser()" class="btn btn-primary">Create<i class="fas fa-sign-in-alt"></i></button>
     </div>
 </div>

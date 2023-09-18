@@ -8,8 +8,7 @@ using System.Linq.Expressions;
 
 namespace Incidents.Application.Incidents.Users.Queries.GetAllUsers
 {
-    //public class GetAllUsersQuery : IRequest<List<GetAllUsersVm>>
-    public class GetAllUsersQuery : IRequest<GetAllUsersVm>
+    public class GetAllUsersQuery : IRequest<List<GetAllUsersVm>>
     {
         public DataTablesParameters Parameters { get; set; }
         public GetAllUsersQuery(DataTablesParameters parameters)
@@ -19,8 +18,7 @@ namespace Incidents.Application.Incidents.Users.Queries.GetAllUsers
 
     }
 
-    //public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<GetAllUsersVm>>
-    public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, GetAllUsersVm>
+    public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<GetAllUsersVm>>
     {
         private readonly IIncidentsDbContext _context;
         private readonly IMapper _mapper;
@@ -30,9 +28,7 @@ namespace Incidents.Application.Incidents.Users.Queries.GetAllUsers
             _context = context;
             _mapper = mapper;
         }
-
-        //public async Task<List<GetAllUsersVm>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
-        public async Task<GetAllUsersVm> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+        public async Task<List<GetAllUsersVm>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
             string orderColumn = request.Parameters.Columns[request.Parameters.Order[0].Column].Name;
             string search = request.Parameters.Search.Value ?? "";
@@ -66,8 +62,7 @@ namespace Incidents.Application.Incidents.Users.Queries.GetAllUsers
                 || x.UserRoles.Any(ur => ur.Role.Name.ToLower().Contains(search)))
                 .Skip(request.Parameters.Start)
                 .Take(request.Parameters.Length)
-                //.ProjectTo<GetAllUsersDto>(_mapper.ConfigurationProvider)
-                .Select(x => new GetAllUsersDto
+                .Select(x => new GetAllUsersVm
                 {
                     Id = x.Id,
                     UserName = x.UserName,
@@ -91,9 +86,7 @@ namespace Incidents.Application.Incidents.Users.Queries.GetAllUsers
 
             request.Parameters.TotalCount = usersCount;
 
-
-
-            return new GetAllUsersVm { Users = users };
+            return users;
         }
     }
 }
