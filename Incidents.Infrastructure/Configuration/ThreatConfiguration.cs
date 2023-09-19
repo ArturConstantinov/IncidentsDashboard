@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Incidents.Infrastructure.EntityTypeConfiguration
+namespace Incidents.Infrastructure.Configuration
 {
     public class ThreatConfiguration : IEntityTypeConfiguration<Threat>
     {

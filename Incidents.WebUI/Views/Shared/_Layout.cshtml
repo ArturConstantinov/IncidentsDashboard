@@ -196,8 +196,11 @@
                     $("form").removeData("validator");
                     $("form").removeData("unobtrusiveValidation");
                     $.validator.unobtrusive.parse("form");
+                    selectOptions();
                 }
             })
+
+            
 
 
         }
@@ -213,16 +216,25 @@
                         dataType: 'json',
                         data: { originId: selectedOriginId },
                         success: function (data) {
-                            $("#ambitSelect").empty();
+                            $("#ambitSelect").empty().append(new Option());
+                            $("#incidentTypeSelect").empty();
+
                             $.each(data, function (i, value) {
                                 $('#ambitSelect').append(new Option(value.name, value.id));
                             });
                             $('#ambitSelect').prop('disabled', data.length === 0);
+                            // if ($('#ambitSelect').prop('disabled', true)) { 
+                                $('#incidentTypeSelect').prop('disabled', true);
+                            // }
                         }
                     });
                 } else {
                     $("#ambitSelect").empty();
                     $("#incidentTypeSelect").empty();
+                    $('#ambitSelect').prop('disabled', true);
+                    $('#incidentTypeSelect').prop('disabled', true);
+
+
                 }
             });
 
@@ -231,10 +243,10 @@
                 if (selectedAmbitId) {
                     $.ajax({
                         url: '/Incident/GetIncidentTypes',
-                        type: 'GET',
+                        type: 'POST',
                         data: { ambitId: selectedAmbitId },
                         success: function (data) {
-                            $("#incidentTypeSelect").empty();
+                            $("#incidentTypeSelect").empty().append(new Option());
                             $.each(data, function (i, value) {
                                 $("#incidentTypeSelect").append(new Option(value.name, value.id));
                             });
@@ -243,6 +255,8 @@
                     });
                 } else {
                     $("#incidentTypeSelect").empty();
+                    $('#incidentTypeSelect').prop('disabled', true);
+
                 }
             });
         }
@@ -277,6 +291,59 @@
                 });
             }
         }
+
+        function goToIncidentEditPage(incidentId) {
+            $.ajax({
+                url: "@Url.Action("GetEditIncident","Incident")",
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: {
+                    incidentId: incidentId
+                },
+                method: "GET",
+                success: function (response) {
+                    $('#contentDiv').html(response);
+                    $("form").removeData("validator");
+                    $("form").removeData("unobtrusiveValidation");
+                    $.validator.unobtrusive.parse("form");
+                }
+            });
+        }
+
+        function editIncident(incidentId) {
+            var form = $("#editIncidentForm");
+
+            if (form.valid()) {
+                var url = form.attr('action');
+
+                $.ajax({
+                    url: url,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    data: form.serialize(),
+                    method: "POST",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    success: function (response) {
+                        $('#contentDiv').html(null);
+                        $('#contentDiv').html(response);
+                        $("form").removeData("validator");
+                        $("form").removeData("unobtrusiveValidation");
+                        $.validator.unobtrusive.parse("form");
+                        loadListUsers();
+                    },
+                    error: function (response) {
+                        $('#contentDiv').html(null);
+                        $('#contentDiv').html(response);
+                        $("form").removeData("validator");
+                        $("form").removeData("unobtrusiveValidation");
+                        $.validator.unobtrusive.parse("form");
+                    }
+                })
+            };
+        }
+
 
         function loadListUsers() {
             $(".dataTables_length").addClass("bs-select");

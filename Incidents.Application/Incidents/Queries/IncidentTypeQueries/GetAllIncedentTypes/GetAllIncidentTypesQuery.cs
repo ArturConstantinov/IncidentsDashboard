@@ -25,7 +25,7 @@ namespace Incidents.Application.Incidents.Queries.IncidentTypeQueries.GetAllInce
         public async Task<List<GetAllIncidentTypesVm>> Handle(GetAllIncidentTypesQuery request, CancellationToken cancellationToken)
         {
             var incidentTypes = await _context.IncidentTypes
-                .Where(x => x.AmbitId == request.AmbitId)
+                //.Where(x => x.AmbitId == request.AmbitId)
                 .Select(x => new GetAllIncidentTypesVm
                 {
                     Id = x.Id,

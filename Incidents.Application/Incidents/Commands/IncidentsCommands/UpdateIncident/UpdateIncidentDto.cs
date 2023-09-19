@@ -1,12 +1,14 @@
 ﻿using MediatR;
 
-namespace Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncident
+namespace Incidents.Application.Incidents.Commands.IncidentsCommands.UpdateIncident
 {
-    public class CreateIncidentDto : IRequest
+    public class UpdateIncidentDto : IRequest
     {
-        public int CreatedBy { get; set; }
+        public int Id { get; set; }
+        public int LastModifiedBy { get; set; }
         public string RequestNr { get; set; }
         public DateTime OpenDate { get; set; }
+        public DateTime? CloseDate { get; set; }
         public string Subsystem { get; set; }
         public string Type { get; set; }
         public string ApplicationType { get; set; }

@@ -127,7 +127,7 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-end">Origin</label>
                 <div class="col-9" >
-                    <select onclick="selectOptions()" id="originSelect" class="form-select form-select-sm" asp-for="OriginId">
+                    <select id="originSelect" class="form-select form-select-sm" asp-for="OriginId">
                         <option></option>
                         @foreach (var origin in ViewBag.Origins)
                         {
@@ -141,8 +141,7 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-end">Ambit</label>
                 <div class="col-9">
-                    <select id="ambitSelect" class="form-select form-select-sm" asp-for="AmbitId">
-
+                    <select id="ambitSelect" disabled class="form-select form-select-sm" asp-for="AmbitId">
                     </select>
                 </div>
             </div>
@@ -152,8 +151,7 @@
                 <label class="col-sm-3 col-form-label text-end">Incident Type</label>
                 <div class="col-9">
 
-                    <select id="incidentTypeSelect" class="form-select form-select-sm" asp-for="IncidentTypeId">
-
+                    <select id="incidentTypeSelect" disabled class="form-select form-select-sm" asp-for="IncidentTypeId">
                     </select>
                 </div>
             </div>

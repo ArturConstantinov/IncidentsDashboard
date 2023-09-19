@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Incidents.Infrastructure.EntityTypeConfiguration
+namespace Incidents.Infrastructure.Configuration
 {
     public class IncidentConfiguration : IEntityTypeConfiguration<Incident>
     {
@@ -59,6 +59,21 @@ namespace Incidents.Infrastructure.EntityTypeConfiguration
 
             //builder.Property(x => x.IsEnabled)
             //    .HasDefaultValue(true);
+
+            builder.HasOne(x => x.Origin)
+              .WithMany(x => x.Incidents)
+              .HasForeignKey(x => x.OriginId)
+              .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(x => x.Ambit)
+                .WithMany(x => x.Incidents)
+                .HasForeignKey(x => x.AmbitId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(x => x.IncidentType)
+                .WithMany(x => x.Incidents)
+                .HasForeignKey(x => x.IncidentTypeId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasData(IncidentsDbContextSeed.Incident);
             

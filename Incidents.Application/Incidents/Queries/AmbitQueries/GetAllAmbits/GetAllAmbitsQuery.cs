@@ -25,7 +25,7 @@ namespace Incidents.Application.Incidents.Queries.AmbitQueries.GetAllAmbits
         public async Task<List<GetAllAmbitsVm>> Handle(GetAllAmbitsQuery request, CancellationToken cancellationToken)
         {
             var ambits = await _context.Ambits
-                .Where(x => x.OriginId == request.OriginId)
+                //.Where(x => x.OriginId == request.OriginId)
                 .Select(x => new GetAllAmbitsVm
                 {
                     Id = x.Id,

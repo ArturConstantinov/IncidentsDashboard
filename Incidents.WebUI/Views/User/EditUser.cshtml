@@ -18,7 +18,8 @@
     <br />
     @if (ViewBag.UserDetails != null)
     {
-        <form class="bg-white" id="editUserForm" asp-controller="User" asp-action="EditUser" asp-route-userId="@ViewBag.UserId" asp-antiforgery="true" method="post">
+        <form class="bg-white" id="editUserForm" asp-controller="User" asp-action="EditUser" 
+        asp-route-userId="@ViewBag.UserId" asp-antiforgery="true" method="post">
             <div class="col-sm-12">
                 <div class="form-group row">
                     <label asp-for="UserName" class="col-sm-3 col-form-label text-end"></label>

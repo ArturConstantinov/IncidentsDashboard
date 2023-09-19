@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Incidents.Application.Common.Extensions;
 using Incidents.Application.Common.Interfaces;
 using Incidents.Application.Common.TableParameters;
 using Incidents.Domain.Entities;
@@ -86,6 +87,21 @@ namespace Incidents.Application.Incidents.Users.Queries.GetAllUsers
 
             request.Parameters.TotalCount = usersCount;
 
+
+            //var usersList = await _context.Users
+            //    .Select(x => new GetAllUsersVm
+            //    {
+            //        Id = x.Id,
+            //        UserName = x.UserName,
+            //        FullName = x.FullName,
+            //        Email = x.Email,
+            //        IsEnabled = x.IsEnabled,
+            //    })
+            //    .Search(request.Parameters)
+            //    .OrderBy(request.Parameters)
+            //    .Page(request.Parameters)
+            //    .ToListAsync(cancellationToken);
+            //return usersList;
             return users;
         }
     }

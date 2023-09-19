@@ -24,6 +24,7 @@ namespace Incidents.Application.Incidents.Queries.IncidentsQueries.GetIncidentBy
         public async Task<GetIncidentByIdVm> Handle(GetIncidentByIdQuery request, CancellationToken cancellationToken)
         {
             var incidentVm = await _context.Incidents
+                //.Include(x=>x.o)
                 .Where(x => x.Id == request.Id)
                 .Select(x => new GetIncidentByIdVm
                 {
@@ -38,9 +39,9 @@ namespace Incidents.Application.Incidents.Queries.IncidentsQueries.GetIncidentBy
                     ProblemSummery = x.ProblemSummery,
                     ProblemDescription = x.ProblemDescription,
                     Solution = x.Solution,
-                    IncidentTypeId = x.IncidentTypeId,
-                    AmbitId = x.AmbitId,
-                    OriginId = x.OriginId,
+                    //IncidentTypeId = x.IncidentTypeId,
+                    //AmbitId = x.AmbitId,
+                    //OriginId = x.OriginId,
                     ScenaryId = x.ScenaryId,
                     ThreatId = x.ThreatId,
 

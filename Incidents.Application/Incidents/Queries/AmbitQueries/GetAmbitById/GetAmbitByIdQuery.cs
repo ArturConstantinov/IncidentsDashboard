@@ -27,7 +27,7 @@ namespace Incidents.Application.Incidents.Queries.AmbitQueries.GetAmbitById
                 .Select(x => new GetAmbitByIdVm
                 {
                     Name = x.Name,
-                    OriginId = x.OriginId
+                    //OriginId = x.OriginId
                 })
                 .FirstOrDefaultAsync(cancellationToken);
 

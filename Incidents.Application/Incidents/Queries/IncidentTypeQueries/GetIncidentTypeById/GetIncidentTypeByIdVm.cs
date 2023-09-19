@@ -12,8 +12,8 @@ namespace Incidents.Application.Incidents.Queries.IncidentTypeQueries.GetInciden
         public void Mapping(Profile profile)
         {
             profile.CreateMap<IncidentType, GetIncidentTypeByIdVm>()
-                .ForMember(x => x.Name, option => option.MapFrom(x => x.Name))
-                .ForMember(x => x.AmbitId, option => option.MapFrom(x => x.AmbitId));
+                .ForMember(x => x.Name, option => option.MapFrom(x => x.Name));
+                //.ForMember(x => x.AmbitId, option => option.MapFrom(x => x.AmbitId));
         }
     }
 }
