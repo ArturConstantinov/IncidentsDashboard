@@ -8,8 +8,7 @@ namespace Incidents.Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<Scenary> builder)
         {
-            //builder.HasKey(x => x.Id)
-            //    .IsClustered(false);
+            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Name)
                 .HasMaxLength(50)

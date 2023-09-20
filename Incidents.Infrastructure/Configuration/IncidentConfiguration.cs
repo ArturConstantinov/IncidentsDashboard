@@ -51,19 +51,27 @@ namespace Incidents.Infrastructure.Configuration
             builder.Property(x => x.ThirdParty)
                 .HasMaxLength(50);
 
-            builder.HasIndex(x => x.ScenaryId)
-                .IsUnique(false);
+            //builder.HasIndex(x => x.ScenaryId)
+            //    .IsUnique(false);
 
-            builder.HasIndex(x => x.ThreatId)
-                .IsUnique(false);
+            builder.HasOne(x => x.Scenary)
+                .WithMany(x => x.Incidents)
+                .HasForeignKey(x => x.ScenaryId)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            //builder.Property(x => x.IsEnabled)
-            //    .HasDefaultValue(true);
+
+            //builder.HasIndex(x => x.ThreatId)
+            //    .IsUnique(false);
+
+            builder.HasOne(x => x.Threat)
+                .WithMany(x => x.Incidents)
+                .HasForeignKey(x => x.ThreatId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(x => x.Origin)
-              .WithMany(x => x.Incidents)
-              .HasForeignKey(x => x.OriginId)
-              .OnDelete(DeleteBehavior.NoAction);
+                .WithMany(x => x.Incidents)
+                .HasForeignKey(x => x.OriginId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(x => x.Ambit)
                 .WithMany(x => x.Incidents)
@@ -75,8 +83,17 @@ namespace Incidents.Infrastructure.Configuration
                 .HasForeignKey(x => x.IncidentTypeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasData(IncidentsDbContextSeed.Incident);
-            
+            builder.Property(x => x.OriginId)
+                .IsRequired(false);
+
+            builder.Property(x => x.AmbitId)
+                .IsRequired(false);
+
+            builder.Property(x => x.IncidentTypeId)
+                .IsRequired(false);
+
+            //builder.HasData(IncidentsDbContextSeed.Incident);
+
         }
     }
 }

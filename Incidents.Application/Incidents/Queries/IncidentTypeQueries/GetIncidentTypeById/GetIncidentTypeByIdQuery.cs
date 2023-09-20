@@ -7,7 +7,7 @@ namespace Incidents.Application.Incidents.Queries.IncidentTypeQueries.GetInciden
 {
     public class GetIncidentTypeByIdQuery : IRequest<GetIncidentTypeByIdVm>
     {
-        public int Id { get; set; }
+        public int TypeId { get; set; }
     }
 
     public class GetIncidentTypeByIdQueryHandler : IRequestHandler<GetIncidentTypeByIdQuery, GetIncidentTypeByIdVm>
@@ -24,11 +24,11 @@ namespace Incidents.Application.Incidents.Queries.IncidentTypeQueries.GetInciden
         public async Task<GetIncidentTypeByIdVm> Handle(GetIncidentTypeByIdQuery request, CancellationToken cancellationToken)
         {
             var incidentTypeVm = await _context.IncidentTypes
-                .Where(x => x.Id == request.Id)
+                .Where(x => x.Id == request.TypeId)
                 .Select(x => new GetIncidentTypeByIdVm
                 {
                     Name = x.Name,
-                    //AmbitId = x.AmbitId
+                    //AmbitToType = x.AmbitsToTypes.Where(x => x.TypeId == request.TypeId).Select(x => x.AmbitId).FirstOrDefault(),
                 })
                 .FirstOrDefaultAsync(cancellationToken);
 

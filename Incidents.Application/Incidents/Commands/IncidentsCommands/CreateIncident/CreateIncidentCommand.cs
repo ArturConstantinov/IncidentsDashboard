@@ -43,6 +43,8 @@ namespace Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncid
                 AmbitId = request.Dto.AmbitId,
                 OriginId = request.Dto.OriginId,
                 ThirdParty = request.Dto.ThirdParty,
+                ScenaryId = request.Dto.ScenaryId,
+                ThreatId = request.Dto.ThreatId,
                 Scenary = await _context.Scenarios.Where(x => x.Id == request.Dto.ScenaryId).FirstOrDefaultAsync(cancellationToken),
                 Threat = await _context.Threats.Where(x => x.Id == request.Dto.ThreatId).FirstOrDefaultAsync(cancellationToken)
             };

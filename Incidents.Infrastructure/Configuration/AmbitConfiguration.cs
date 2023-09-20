@@ -18,29 +18,25 @@ namespace Incidents.Infrastructure.Configuration
                 .HasMaxLength(50)
                 .IsRequired();
 
-            //builder.HasData(
-            //    IncidentsDbContextSeed.SoftwareA,
-            //    IncidentsDbContextSeed.FunctionalityA,
-            //    IncidentsDbContextSeed.PhaseA,
-            //    IncidentsDbContextSeed.Release,
-            //    IncidentsDbContextSeed.Service,
-            //    IncidentsDbContextSeed.FunctionalityE,
-            //    IncidentsDbContextSeed.SoftwareE,
-            //    IncidentsDbContextSeed.TransmissionChannels,
-            //    IncidentsDbContextSeed.CICS,
-            //    IncidentsDbContextSeed.Database,
-            //    IncidentsDbContextSeed.PhaseI,
-            //    IncidentsDbContextSeed.HardwareHost,
-            //    IncidentsDbContextSeed.HardwareOpen,
-            //    IncidentsDbContextSeed.Middleware,
-            //    IncidentsDbContextSeed.Networks,
-            //    IncidentsDbContextSeed.Security,
-            //    IncidentsDbContextSeed.SoftwareI,
-            //    IncidentsDbContextSeed.BasicHostSoftware,
-            //    IncidentsDbContextSeed.OpenBasicSoftware,
-            //    IncidentsDbContextSeed.ServiceSoftware,
-            //    IncidentsDbContextSeed.Storage
-            //    );
+            builder.HasData(
+                IncidentsDbContextSeed.Software,
+                IncidentsDbContextSeed.Functionality,
+                IncidentsDbContextSeed.Phase,
+                IncidentsDbContextSeed.Release,
+                IncidentsDbContextSeed.Service,
+                IncidentsDbContextSeed.TransmissionChannels,
+                IncidentsDbContextSeed.CICS,
+                IncidentsDbContextSeed.Database,
+                IncidentsDbContextSeed.HardwareHost,
+                IncidentsDbContextSeed.HardwareOpen,
+                IncidentsDbContextSeed.Middleware,
+                IncidentsDbContextSeed.Networks,
+                IncidentsDbContextSeed.Security,
+                IncidentsDbContextSeed.BasicHostSoftware,
+                IncidentsDbContextSeed.OpenBasicSoftware,
+                IncidentsDbContextSeed.ServiceSoftware,
+                IncidentsDbContextSeed.Storage
+                );
         }
     }
 }

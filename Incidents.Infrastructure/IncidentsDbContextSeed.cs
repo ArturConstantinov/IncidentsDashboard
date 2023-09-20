@@ -55,7 +55,6 @@ namespace Incidents.Infrastructure
         #endregion
 
         #region IncidentType
-        
         public static readonly IncidentType Configuration = new IncidentType { Id = 1, Name = "Configuration" };
         public static readonly IncidentType SoftwareMalfunction = new IncidentType { Id = 2, Name = "Software Malfunction" };
         public static readonly IncidentType ThirdParts = new IncidentType { Id = 3, Name = "Third Parts" };
@@ -101,68 +100,68 @@ namespace Incidents.Infrastructure
         #endregion
 
         #region AmbitsToTypes
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes1 = new AmbitsToTypes { AmbitId = Phase.Id, TypeId = Configuration.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes2 = new AmbitsToTypes { AmbitId = Phase.Id, TypeId = SoftwareMalfunction.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes1 = new AmbitsToTypes { AmbitId = Phase.Id, TypeId = Configuration.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes2 = new AmbitsToTypes { AmbitId = Phase.Id, TypeId = SoftwareMalfunction.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes3 = new AmbitsToTypes { AmbitId = Functionality.Id, TypeId = SoftwareMalfunction.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes4 = new AmbitsToTypes { AmbitId = Functionality.Id, TypeId = ThirdParts.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes3 = new AmbitsToTypes { AmbitId = Functionality.Id, TypeId = SoftwareMalfunction.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes4 = new AmbitsToTypes { AmbitId = Functionality.Id, TypeId = ThirdParts.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes5 = new AmbitsToTypes { AmbitId = Release.Id, TypeId = IncorrectChange.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes5 = new AmbitsToTypes { AmbitId = Release.Id, TypeId = IncorrectChange.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes6 = new AmbitsToTypes { AmbitId = Software.Id, TypeId = IncorrectChange.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes7 = new AmbitsToTypes { AmbitId = Software.Id, TypeId = Code.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes8 = new AmbitsToTypes { AmbitId = Software.Id, TypeId = Configuration.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes9 = new AmbitsToTypes { AmbitId = Software.Id, TypeId = ResourceSaturation.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes10 = new AmbitsToTypes { AmbitId = Software.Id, TypeId = ThirdParts.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes11 = new AmbitsToTypes { AmbitId = Software.Id, TypeId = InsufficientResources.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes6 = new AmbitsToTypes { AmbitId = Software.Id, TypeId = IncorrectChange.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes7 = new AmbitsToTypes { AmbitId = Software.Id, TypeId = Code.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes8 = new AmbitsToTypes { AmbitId = Software.Id, TypeId = Configuration.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes9 = new AmbitsToTypes { AmbitId = Software.Id, TypeId = ResourceSaturation.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes10 = new AmbitsToTypes { AmbitId = Software.Id, TypeId = ThirdParts.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes11 = new AmbitsToTypes { AmbitId = Software.Id, TypeId = InsufficientResources.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes12 = new AmbitsToTypes { AmbitId = Service.Id, TypeId = ThirdParts.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes12 = new AmbitsToTypes { AmbitId = Service.Id, TypeId = ThirdParts.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes13 = new AmbitsToTypes { AmbitId = TransmissionChannels.Id, TypeId = SoftwareMalfunction.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes14 = new AmbitsToTypes { AmbitId = TransmissionChannels.Id, TypeId = InsufficientResources.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes15 = new AmbitsToTypes { AmbitId = TransmissionChannels.Id, TypeId = Configuration.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes13 = new AmbitsToTypes { AmbitId = TransmissionChannels.Id, TypeId = SoftwareMalfunction.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes14 = new AmbitsToTypes { AmbitId = TransmissionChannels.Id, TypeId = InsufficientResources.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes15 = new AmbitsToTypes { AmbitId = TransmissionChannels.Id, TypeId = Configuration.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes16 = new AmbitsToTypes { AmbitId = CICS.Id, TypeId = HardwareMalfunction.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes17 = new AmbitsToTypes { AmbitId = CICS.Id, TypeId = Configuration.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes16 = new AmbitsToTypes { AmbitId = CICS.Id, TypeId = HardwareMalfunction.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes17 = new AmbitsToTypes { AmbitId = CICS.Id, TypeId = Configuration.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes18 = new AmbitsToTypes { AmbitId = Database.Id, TypeId = Degradation.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes19 = new AmbitsToTypes { AmbitId = Database.Id, TypeId = HardwareMalfunction.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes20 = new AmbitsToTypes { AmbitId = Database.Id, TypeId = SoftwareMalfunction.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes21 = new AmbitsToTypes { AmbitId = Database.Id, TypeId = InsufficientResources.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes18 = new AmbitsToTypes { AmbitId = Database.Id, TypeId = Degradation.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes19 = new AmbitsToTypes { AmbitId = Database.Id, TypeId = HardwareMalfunction.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes20 = new AmbitsToTypes { AmbitId = Database.Id, TypeId = SoftwareMalfunction.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes21 = new AmbitsToTypes { AmbitId = Database.Id, TypeId = InsufficientResources.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes22 = new AmbitsToTypes { AmbitId = HardwareHost.Id, TypeId = InsufficientResources.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes23 = new AmbitsToTypes { AmbitId = HardwareHost.Id, TypeId = ResourceSaturation.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes22 = new AmbitsToTypes { AmbitId = HardwareHost.Id, TypeId = InsufficientResources.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes23 = new AmbitsToTypes { AmbitId = HardwareHost.Id, TypeId = ResourceSaturation.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes24 = new AmbitsToTypes { AmbitId = HardwareOpen.Id, TypeId = IncorrectChange.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes25 = new AmbitsToTypes { AmbitId = HardwareOpen.Id, TypeId = Block.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes26 = new AmbitsToTypes { AmbitId = HardwareOpen.Id, TypeId = Degradation.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes27 = new AmbitsToTypes { AmbitId = HardwareOpen.Id, TypeId = InsufficientResources.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes24 = new AmbitsToTypes { AmbitId = HardwareOpen.Id, TypeId = IncorrectChange.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes25 = new AmbitsToTypes { AmbitId = HardwareOpen.Id, TypeId = Block.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes26 = new AmbitsToTypes { AmbitId = HardwareOpen.Id, TypeId = Degradation.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes27 = new AmbitsToTypes { AmbitId = HardwareOpen.Id, TypeId = InsufficientResources.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes28 = new AmbitsToTypes { AmbitId = Middleware.Id, TypeId = IncorrectChange.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes29 = new AmbitsToTypes { AmbitId = Middleware.Id, TypeId = SoftwareMalfunction.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes30 = new AmbitsToTypes { AmbitId = Middleware.Id, TypeId = InsufficientResources.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes31 = new AmbitsToTypes { AmbitId = Middleware.Id, TypeId = ResourceSaturation.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes28 = new AmbitsToTypes { AmbitId = Middleware.Id, TypeId = IncorrectChange.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes29 = new AmbitsToTypes { AmbitId = Middleware.Id, TypeId = SoftwareMalfunction.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes30 = new AmbitsToTypes { AmbitId = Middleware.Id, TypeId = InsufficientResources.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes31 = new AmbitsToTypes { AmbitId = Middleware.Id, TypeId = ResourceSaturation.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes32 = new AmbitsToTypes { AmbitId = Networks.Id, TypeId = IncorrectChange.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes32 = new AmbitsToTypes { AmbitId = Networks.Id, TypeId = IncorrectChange.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes33 = new AmbitsToTypes { AmbitId = Security.Id, TypeId = Accesses.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes34 = new AmbitsToTypes { AmbitId = Security.Id, TypeId = CyberAttacks.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes35 = new AmbitsToTypes { AmbitId = Security.Id, TypeId = Certificates.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes36 = new AmbitsToTypes { AmbitId = Security.Id, TypeId = Configuration.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes37 = new AmbitsToTypes { AmbitId = Security.Id, TypeId = Firewall.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes38 = new AmbitsToTypes { AmbitId = Security.Id, TypeId = IDM.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes39 = new AmbitsToTypes { AmbitId = Security.Id, TypeId = Patching.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes33 = new AmbitsToTypes { AmbitId = Security.Id, TypeId = Accesses.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes34 = new AmbitsToTypes { AmbitId = Security.Id, TypeId = CyberAttacks.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes35 = new AmbitsToTypes { AmbitId = Security.Id, TypeId = Certificates.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes36 = new AmbitsToTypes { AmbitId = Security.Id, TypeId = Configuration.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes37 = new AmbitsToTypes { AmbitId = Security.Id, TypeId = Firewall.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes38 = new AmbitsToTypes { AmbitId = Security.Id, TypeId = IDM.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes39 = new AmbitsToTypes { AmbitId = Security.Id, TypeId = Patching.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes40 = new AmbitsToTypes { AmbitId = BasicHostSoftware.Id, TypeId = InsufficientResources.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes40 = new AmbitsToTypes { AmbitId = BasicHostSoftware.Id, TypeId = InsufficientResources.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes41 = new AmbitsToTypes { AmbitId = OpenBasicSoftware.Id, TypeId = InsufficientResources.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes42 = new AmbitsToTypes { AmbitId = OpenBasicSoftware.Id, TypeId = ResourceSaturation.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes41 = new AmbitsToTypes { AmbitId = OpenBasicSoftware.Id, TypeId = InsufficientResources.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes42 = new AmbitsToTypes { AmbitId = OpenBasicSoftware.Id, TypeId = ResourceSaturation.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes43 = new AmbitsToTypes { AmbitId = ServiceSoftware.Id, TypeId = Block.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes44 = new AmbitsToTypes { AmbitId = ServiceSoftware.Id, TypeId = Degradation.Id };
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes45 = new AmbitsToTypes { AmbitId = ServiceSoftware.Id, TypeId = ResourceSaturation.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes43 = new AmbitsToTypes { AmbitId = ServiceSoftware.Id, TypeId = Block.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes44 = new AmbitsToTypes { AmbitId = ServiceSoftware.Id, TypeId = Degradation.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes45 = new AmbitsToTypes { AmbitId = ServiceSoftware.Id, TypeId = ResourceSaturation.Id };
 
-        public static readonly AmbitsToTypes IncidentAmbitsToTypes46 = new AmbitsToTypes { AmbitId = Storage.Id, TypeId = ResourceSaturation.Id };
+        public static readonly AmbitsToTypes AmbitsToTypes46 = new AmbitsToTypes { AmbitId = Storage.Id, TypeId = ResourceSaturation.Id };
         #endregion
 
         #region Scenary
@@ -177,25 +176,25 @@ namespace Incidents.Infrastructure
         public static readonly Threat ThreatAA3 = new Threat { Id = 3, Name = "AA3" };
         #endregion
 
-        #region Incident
-        public static readonly Incident Incident = new Incident {
-            Id = 1,
-            RequestNr = "host0000007415837",
-            Subsystem = "cr",
-            Type = "Request Intervention",
-            ApplicationType = "Application Type",
-            Urgency = "Hight",
-            SubCause = "definition change",
-            ProblemSummery = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            ProblemDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            Solution = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            IncidentTypeId = 1,
-            AmbitId = 3,
-            OriginId = 1,
-            ThirdParty = "AAA1",
-            ScenaryId = 1,
-            ThreatId = 1
-        };
-        #endregion
+        //#region Incident
+        //public static readonly Incident Incident = new Incident {
+        //    //Id = 1,
+        //    RequestNr = "host0000007415837",
+        //    Subsystem = "cr",
+        //    Type = "Request Intervention",
+        //    ApplicationType = "Application Type",
+        //    Urgency = "Hight",
+        //    SubCause = "definition change",
+        //    ProblemSummery = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        //    ProblemDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        //    Solution = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        //    IncidentTypeId = 1,
+        //    AmbitId = 3,
+        //    OriginId = 1,
+        //    ThirdParty = "AAA1",
+        //    ScenaryId = 1,
+        //    ThreatId = 1
+        //};
+        //#endregion
     }
 }

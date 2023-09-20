@@ -203,10 +203,10 @@ namespace Incidents.Infrastructure.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.InsertData(
-                table: "Incidents",
-                columns: new[] { "Id", "AmbitId", "ApplicationType", "CloseDate", "Created", "CreatedBy", "IncidentTypeId", "LastModified", "LastModifiedBy", "OpenDate", "OriginId", "ProblemDescription", "ProblemSummery", "RequestNr", "ScenaryId", "Solution", "SubCause", "Subsystem", "ThirdParty", "ThreatId", "Type", "Urgency" },
-                values: new object[] { 1, null, "Application Type", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "host0000007415837", null, "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "definition change", "cr", null, null, "Request Intervention", "Hight" });
+            //migrationBuilder.InsertData(
+            //    table: "Incidents",
+            //    columns: new[] { "Id", "AmbitId", "ApplicationType", "CloseDate", "Created", "CreatedBy", "IncidentTypeId", "LastModified", "LastModifiedBy", "OpenDate", "OriginId", "ProblemDescription", "ProblemSummery", "RequestNr", "ScenaryId", "Solution", "SubCause", "Subsystem", "ThirdParty", "ThreatId", "Type", "Urgency" },
+            //    values: new object[] { 1, null, "Application Type", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "host0000007415837", null, "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "definition change", "cr", null, null, "Request Intervention", "Hight" });
 
             migrationBuilder.InsertData(
                 table: "Roles",

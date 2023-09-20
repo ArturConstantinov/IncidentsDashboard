@@ -7,13 +7,12 @@ namespace Incidents.Application.Incidents.Queries.IncidentTypeQueries.GetInciden
     public class GetIncidentTypeByIdVm : IMapWith<IncidentType>
     {
         public string Name { get; set; }
-        public int AmbitId { get; set; }
+        //public int AmbitToType { get; set; }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<IncidentType, GetIncidentTypeByIdVm>()
                 .ForMember(x => x.Name, option => option.MapFrom(x => x.Name));
-                //.ForMember(x => x.AmbitId, option => option.MapFrom(x => x.AmbitId));
         }
     }
 }

@@ -39,9 +39,9 @@ namespace Incidents.Application.Incidents.Queries.IncidentsQueries.GetIncidentBy
                     ProblemSummery = x.ProblemSummery,
                     ProblemDescription = x.ProblemDescription,
                     Solution = x.Solution,
-                    //IncidentTypeId = x.IncidentTypeId,
-                    //AmbitId = x.AmbitId,
-                    //OriginId = x.OriginId,
+                    IncidentTypeId = x.IncidentTypeId,
+                    AmbitId = x.AmbitId,
+                    OriginId = x.OriginId,
                     ScenaryId = x.ScenaryId,
                     ThreatId = x.ThreatId,
 

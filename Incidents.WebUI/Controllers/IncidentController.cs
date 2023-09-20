@@ -57,7 +57,7 @@ namespace Incidents.WebUI.Controllers
 
             if (incidentDetails.IncidentTypeId != null) 
             {
-                var incidentType = await Mediator.Send(new GetIncidentTypeByIdQuery { Id = (int)incidentDetails.IncidentTypeId });
+                var incidentType = await Mediator.Send(new GetIncidentTypeByIdQuery { TypeId = (int)incidentDetails.IncidentTypeId });
                 ViewBag.IncidentType = incidentType;
             }
 
@@ -73,17 +73,12 @@ namespace Incidents.WebUI.Controllers
                 ViewBag.Origin = origin;
             }
 
-            if(incidentDetails.ScenaryId != null)
-            {
-                var scenary = await Mediator.Send(new GetScenaryByIdQuery { Id = (int)incidentDetails.ScenaryId });
-                ViewBag.Scenary = scenary;
-            }
+            var scenary = await Mediator.Send(new GetScenaryByIdQuery { Id = (int)incidentDetails.ScenaryId });
+            ViewBag.Scenary = scenary;
 
-            if (incidentDetails.ThreatId != null)
-            {
-                var threat = await Mediator.Send(new GetThreatByIdQuery { Id = (int)incidentDetails.ThreatId });
-                ViewBag.Threat = threat;
-            }
+            
+            var threat = await Mediator.Send(new GetThreatByIdQuery { Id = (int)incidentDetails.ThreatId });
+            ViewBag.Threat = threat;
 
             return View("IncidentDetails");
         }

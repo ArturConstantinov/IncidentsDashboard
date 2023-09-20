@@ -4,6 +4,7 @@ using Incidents.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Incidents.Infrastructure.Migrations
 {
     [DbContext(typeof(IncidentsDbContext))]
-    partial class IncidentsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230920092255_RemoveSeedForIncidents")]
+    partial class RemoveSeedForIncidents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -389,6 +392,7 @@ namespace Incidents.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("AmbitId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("ApplicationType")
@@ -406,6 +410,7 @@ namespace Incidents.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("IncidentTypeId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("LastModified")
@@ -418,6 +423,7 @@ namespace Incidents.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("OriginId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("ProblemDescription")
@@ -985,17 +991,20 @@ namespace Incidents.Infrastructure.Migrations
                     b.HasOne("Incidents.Domain.Entities.Ambit", "Ambit")
                         .WithMany("Incidents")
                         .HasForeignKey("AmbitId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Incidents.Domain.Entities.IncidentType", "IncidentType")
                         .WithMany("Incidents")
                         .HasForeignKey("IncidentTypeId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Incidents.Domain.Entities.Origin", "Origin")
                         .WithMany("Incidents")
                         .HasForeignKey("OriginId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Incidents.Domain.Entities.Scenary", "Scenary")
                         .WithMany("Incidents")

@@ -17,9 +17,9 @@ namespace Incidents.Application.Incidents.Queries.IncidentsQueries.GetIncidentBy
         public string ProblemSummery { get; set; }
         public string ProblemDescription { get; set; }
         public string Solution { get; set; }
-        public int IncidentTypeId { get; set; }
-        public int AmbitId { get; set; }
-        public int OriginId { get; set; }
+        public int? IncidentTypeId { get; set; }
+        public int? AmbitId { get; set; }
+        public int? OriginId { get; set; }
         public int ScenaryId { get; set; }
         public int ThreatId { get; set; }
 
