@@ -87,7 +87,6 @@ namespace Incidents.WebUI.Controllers
             ViewBag.Threats = threats;
 
             var createIncidentDto = new CreateIncidentDto();
-            createIncidentDto.OpenDate = DateTime.UtcNow;
 
             return View("Create", createIncidentDto);
         }
@@ -113,7 +112,7 @@ namespace Incidents.WebUI.Controllers
             }
 
             var result = await Mediator.Send(new CreateIncidentCommand { Dto = incidentDto });
-            return View("Index", incidentDto);
+            return View("Index");
 
         }
 
@@ -142,7 +141,7 @@ namespace Incidents.WebUI.Controllers
                 throw new Exception("Incident is Null");
             }
             //ViewBag.IncidentDetails = incidentDetails;
-            ViewBag.IncidentId = incidentId;
+            //ViewBag.IncidentId = incidentId;
 
             if (incidentDetails.OriginId != null)
             {

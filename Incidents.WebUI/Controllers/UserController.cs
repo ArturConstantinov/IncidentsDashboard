@@ -2,6 +2,7 @@
 using Incidents.Application.Incidents.Queries.RoleQueries.GetAllRoles;
 using Incidents.Application.Incidents.Users.Commands.CreateUser;
 using Incidents.Application.Incidents.Users.Commands.UpdateUser;
+using Incidents.Application.Incidents.Users.Commands.UpdateUser.GetUpdateUserById;
 using Incidents.Application.Incidents.Users.Queries.GetAllUsers;
 using Incidents.Application.Incidents.Users.Queries.GetUserById;
 using Microsoft.AspNetCore.Authorization;
@@ -40,7 +41,8 @@ namespace Incidents.WebUI.Controllers
             var roles = await Mediator.Send(new GetAllRolesQuery());
             ViewBag.Roles = roles;
 
-            return View("Create");
+            var createUserDro = new CreateUserDto();
+            return View("Create", createUserDro);
         }
 
         [HttpPost]
@@ -63,7 +65,7 @@ namespace Incidents.WebUI.Controllers
                 return await GetCreateUser(errors);
             }
 
-            var result = await Mediator.Send(new CreateUserCommand { UserDto = userDto });
+            await Mediator.Send(new CreateUserCommand { UserDto = userDto });
             return View("Index");
         }
 
@@ -72,15 +74,11 @@ namespace Incidents.WebUI.Controllers
         public async Task<IActionResult> GetEditUser(int userId, List<string> errors = null!)
         {
             ViewBag.Error = errors;
-           var userDetails = await Mediator.Send(new GetUserByIdQuery { UserId = userId });
-
-            ViewBag.UserDetails = userDetails;
-            ViewBag.UserId = userId;
-
+            var userDetails = await Mediator.Send(new GetUpdateUserByIdQuery { UserId = userId });
             var roles = await Mediator.Send(new GetAllRolesQuery());
             ViewBag.Roles = roles;
 
-            return View("EditUser");
+            return View("EditUser", userDetails);
         }
 
         [HttpPost]
@@ -113,14 +111,12 @@ namespace Incidents.WebUI.Controllers
         [Authorize]
         public async Task<IActionResult> UserDetails(int userId)
         {
-            var userDetails = await Mediator.Send(new GetUserByIdQuery { UserId = userId });
+            var userDetails = await Mediator.Send(new GetDetailsUserByIdQuery { UserId = userId });
 
-            ViewBag.UserDetails = userDetails;
-            ViewBag.UserId = userId;
-            var roles = await Mediator.Send(new GetAllRolesQuery());
-            ViewBag.Roles = roles;
+            //var roles = await Mediator.Send(new GetAllRolesQuery());
+            //ViewBag.Roles = roles;
 
-            return View("UserDetails");
+            return View("UserDetails", userDetails);
         }
     }
 }

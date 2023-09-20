@@ -18,7 +18,7 @@
     <br />
     <br />
     <form class="bg-white" id="editIncidentForm" asp-controller="Incident"
-            asp-action="EditIncident" asp-route-incidentId="@ViewBag.IncidentId" asp-antiforgery="true" method="post">
+            asp-action="EditIncident" asp-route-incidentId="@Model.Id" asp-antiforgery="true" method="post">
         <div class="col-sm-12">
             <div class="form-group row">
                 <label asp-for="RequestNr" class="col-sm-3 col-form-label text-end"></label>

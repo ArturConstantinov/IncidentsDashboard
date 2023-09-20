@@ -54,9 +54,7 @@ namespace Incidents.Application.Incidents.Users.Commands.UpdateUser
             user.LastModifiedBy = request.UserDto.LastModifiedBy;
 
             user.UserRoles.Clear();
-            user.UserRoles.AddRange(request.UserDto.RolesId.Select(id => new UserRole { RoleId = id }));
-
-            //user.UserRoles = request.UserDto.RolesId.Select(id => new UserRole { RoleId = id }).ToList();
+            user.UserRoles.AddRange(request.UserDto.UserRoles.Select(id => new UserRole { RoleId = id }));
 
             return await _context.SaveChangesAsync(cancellationToken);
         }

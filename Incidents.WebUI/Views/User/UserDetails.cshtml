@@ -1,8 +1,8 @@
-﻿@using Incidents.Application.Incidents.Users.Commands.UpdateUser;
+﻿@using Incidents.Application.Incidents.Queries.UserQueries.GetUserById;
 @{
     Layout = null;
 }
-@model UpdateUserDto;
+@model GetDetailsUserByIdVm;
 
 <h1 class="display-5 text-center">User Details</h1>
 <div class="container col-md-8">
@@ -16,63 +16,52 @@
     <a onclick="goToUserIndex()" class="btn btn-primary float-end" tabindex="-1" role="button" aria-disabled="true">Back</a>
     <br />
     <br />
-    @if (ViewBag.UserDetails != null)
-    {
-        <form class="bg-white" id="detailUserForm" asp-antiforgery="true">
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label asp-for="UserName" class="col-sm-3 col-form-label text-end"></label>
-                    <div class="col-sm-9">
-                        <input asp-for="UserName" class="form-control form-control-sm" value="@ViewBag.UserDetails.UserName" disabled/>
-                        <span asp-validation-for="UserName" class="text-danger"></span>
-                    </div>
+    
+    <form class="bg-white" id="detailUserForm" asp-antiforgery="true">
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label asp-for="UserName" class="col-sm-3 col-form-label text-end">User Name</label>
+                <div class="col-sm-9">
+                    <input asp-for="UserName" class="form-control form-control-sm" disabled/>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="FullName">Full Name</label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="FullName" value="@ViewBag.UserDetails.FullName" disabled/>
-                        <span class="text-danger" asp-validation-for="FullName"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="FullName">Full Name</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="FullName" disabled/>
+                    <span class="text-danger" asp-validation-for="FullName"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="Email"></label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="Email" value="@ViewBag.UserDetails.Email" disabled />
-                        <span class="text-danger" asp-validation-for="Email"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="Email"></label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="Email" disabled />
+                    <span class="text-danger" asp-validation-for="Email"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="IsEnabled">Enabled</label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="IsEnabled" value="@ViewBag.UserDetails.IsEnabled" disabled />
-                        <span class="text-danger" asp-validation-for="IsEnabled"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="IsEnabled">Enabled</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="IsEnabled" disabled />
+                    <span class="text-danger" asp-validation-for="IsEnabled"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="RolesId">Role</label>
-                    <div class="col-9">
-                        <select class="form-select" asp-for="RolesId" disabled>
-                            @foreach (var role in ViewBag.Roles)
-                            {
-                                if (ViewBag.UserDetails.UserRoles.Contains(role.Id))
-                                {
-                                    <option value="@role.Id">@role.Name</option>
-                                }
-                            }
-                        </select>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="UserRoles">Role</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="UserRoles" value="@string.Join(", ", Model.UserRoles)" disabled />
                 </div>
-                <span class="text-danger" asp-validation-for="RolesId"></span>
             </div>
-        </form>
-    }
-
+            <span class="text-danger" asp-validation-for="UserRoles"></span>
+        </div>
+    </form>
 </div>

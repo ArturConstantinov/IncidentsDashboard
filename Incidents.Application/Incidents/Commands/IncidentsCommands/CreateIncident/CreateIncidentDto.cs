@@ -6,7 +6,7 @@ namespace Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncid
     {
         public int CreatedBy { get; set; }
         public string RequestNr { get; set; }
-        public DateTime OpenDate { get; set; }
+        public DateTime OpenDate { get => DateTime.Now; set => OpenDate = value; }
         public string Subsystem { get; set; }
         public string Type { get; set; }
         public string ApplicationType { get; set; }

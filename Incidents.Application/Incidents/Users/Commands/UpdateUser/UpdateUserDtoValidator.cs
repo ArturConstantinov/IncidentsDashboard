@@ -25,7 +25,7 @@ namespace Incidents.Application.Incidents.Users.Commands.UpdateUser
             RuleFor(x => x.Email)
                 .EmailAddress().WithMessage("Not an email address");
 
-            RuleFor(x => x.RolesId)
+            RuleFor(x => x.UserRoles)
                 .NotEmpty().WithMessage("Need to select role");
         }
     }

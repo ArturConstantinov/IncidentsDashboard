@@ -12,6 +12,6 @@ namespace Incidents.Application.Incidents.Users.Commands.UpdateUser
         public string FullName { get; set; }
         public string Email { get; set; }
         public bool IsEnabled { get; set; }
-        public List<int> RolesId { get; set; }
+        public List<int> UserRoles { get; set; }
     }
 }
