@@ -2,6 +2,7 @@
 using Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncident;
 using Incidents.Application.Incidents.Commands.IncidentsCommands.DeleteIncident;
 using Incidents.Application.Incidents.Commands.IncidentsCommands.UpdateIncident;
+using Incidents.Application.Incidents.Commands.IncidentsCommands.UpdateIncident.GetUpdateIncidentById;
 using Incidents.Application.Incidents.Queries.AmbitQueries.GetAllAmbits;
 using Incidents.Application.Incidents.Queries.AmbitQueries.GetAmbitById;
 using Incidents.Application.Incidents.Queries.IncidentsQueries.GetAllIncidents;
@@ -49,38 +50,9 @@ namespace Incidents.WebUI.Controllers
         [Authorize]
         public async Task<IActionResult> IncidentDetails(int incidentId)
         {
-            var incidentDetails = await Mediator.Send(new GetIncidentByIdQuery { Id = incidentId });
-            
+            var incidentDetails = await Mediator.Send(new GetDeatilsIncidentByIdQuery { Id = incidentId });
 
-            ViewBag.IncidentDetails = incidentDetails;
-            ViewBag.IncidentId = incidentId;
-
-            if (incidentDetails.IncidentTypeId != null) 
-            {
-                var incidentType = await Mediator.Send(new GetIncidentTypeByIdQuery { TypeId = (int)incidentDetails.IncidentTypeId });
-                ViewBag.IncidentType = incidentType;
-            }
-
-            if (incidentDetails.AmbitId != null)
-            {
-                var ambit = await Mediator.Send(new GetAmbitByIdQuery { Id = (int)incidentDetails.AmbitId });
-                ViewBag.Ambit = ambit;
-            }
-
-            if (incidentDetails.OriginId != null)
-            {
-                var origin = await Mediator.Send(new GetOriginByIdQuery { Id = (int)incidentDetails.OriginId });
-                ViewBag.Origin = origin;
-            }
-
-            var scenary = await Mediator.Send(new GetScenaryByIdQuery { Id = (int)incidentDetails.ScenaryId });
-            ViewBag.Scenary = scenary;
-
-            
-            var threat = await Mediator.Send(new GetThreatByIdQuery { Id = (int)incidentDetails.ThreatId });
-            ViewBag.Threat = threat;
-
-            return View("IncidentDetails");
+            return View("IncidentDetails", incidentDetails);
         }
 
         [HttpPost]
@@ -111,11 +83,13 @@ namespace Incidents.WebUI.Controllers
             var threats = await Mediator.Send(new GetAllThreatsQuery { });
             
             ViewBag.Origins = origins;
-
             ViewBag.Scenarios = scenarios;
             ViewBag.Threats = threats;
 
-            return View("Create");
+            var createIncidentDto = new CreateIncidentDto();
+            createIncidentDto.OpenDate = DateTime.UtcNow;
+
+            return View("Create", createIncidentDto);
         }
 
         [HttpPost]
@@ -139,7 +113,7 @@ namespace Incidents.WebUI.Controllers
             }
 
             var result = await Mediator.Send(new CreateIncidentCommand { Dto = incidentDto });
-            return View("Index");
+            return View("Index", incidentDto);
 
         }
 
@@ -156,7 +130,9 @@ namespace Incidents.WebUI.Controllers
         public async Task<IActionResult> GetEditIncident(int incidentId, List<string> errors = null!)
         {
             ViewBag.Error = errors;
-            var incidentDetails = await Mediator.Send(new GetIncidentByIdQuery { Id = incidentId });
+
+            var incidentDetails = await Mediator.Send(new GetUpdateIncidentByIdQuery { Id = incidentId });
+
             var scenarios = await Mediator.Send(new GetAllScenariosQuery { });
             var threats = await Mediator.Send(new GetAllThreatsQuery { });
             var origins = await Mediator.Send(new GetAllOriginsQuery { });
@@ -165,7 +141,7 @@ namespace Incidents.WebUI.Controllers
             {
                 throw new Exception("Incident is Null");
             }
-            ViewBag.IncidentDetails = incidentDetails;
+            //ViewBag.IncidentDetails = incidentDetails;
             ViewBag.IncidentId = incidentId;
 
             if (incidentDetails.OriginId != null)
@@ -178,7 +154,7 @@ namespace Incidents.WebUI.Controllers
             if (incidentDetails.AmbitId != null)
             {
                 var incidentTypes = await Mediator.Send(new GetAllIncidentTypesQuery { AmbitId = (int)incidentDetails.AmbitId });
-                ViewBag.IncidentType = incidentTypes;
+                ViewBag.IncidentTypes = incidentTypes;
 
             }
 
@@ -188,7 +164,7 @@ namespace Incidents.WebUI.Controllers
             ViewBag.Threats = threats;
 
 
-            return View("EditIncident");//, incidentDetails);
+            return View("EditIncident", incidentDetails);
         }
 
         [HttpPost]

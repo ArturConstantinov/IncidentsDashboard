@@ -17,216 +17,256 @@
     <a onclick="goToIncidentsIndex()" class="btn btn-primary float-end" tabindex="-1" role="button" aria-disabled="true">Back</a>
     <br />
     <br />
-    @if (ViewBag.IncidentDetails != null)
-    {
-        <form class="bg-white" id="editIncidentForm" asp-controller="Incident"
-              asp-action="EditIncident" asp-route-incidentId="@ViewBag.IncidentId" asp-antiforgery="true" method="post">
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label asp-for="RequestNr" class="col-sm-3 col-form-label text-end"></label>
-                    <div class="col-sm-9">
-                        <input asp-for="RequestNr" class="form-control form-control-sm"/>
-                        <span asp-validation-for="RequestNr" class="text-danger"></span>
-                    </div>
+    <form class="bg-white" id="editIncidentForm" asp-controller="Incident"
+            asp-action="EditIncident" asp-route-incidentId="@ViewBag.IncidentId" asp-antiforgery="true" method="post">
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label asp-for="RequestNr" class="col-sm-3 col-form-label text-end"></label>
+                <div class="col-sm-9">
+                    <input asp-for="RequestNr" class="form-control form-control-sm"/>
+                    <span asp-validation-for="RequestNr" class="text-danger"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="Subsystem"></label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="Subsystem" />
-                        <span class="text-danger" asp-validation-for="Subsystem"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="Subsystem"></label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="Subsystem" />
+                    <span class="text-danger" asp-validation-for="Subsystem"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="OpenDate">Open Date</label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="date" asp-for="OpenDate" value="@ViewBag.IncidentDetails.OpenDate" />
-                        <span class="text-danger" asp-validation-for="OpenDate"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="OpenDate">Open Date</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="date" asp-for="OpenDate" />
+                    <span class="text-danger" asp-validation-for="OpenDate"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="CloseDate">Close Date</label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="CloseDate" value="@ViewBag.IncidentDetails.CloseDate" />
-                        <span class="text-danger" asp-validation-for="CloseDate"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="CloseDate">Close Date</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="date" asp-for="CloseDate" />
+                    <span class="text-danger" asp-validation-for="CloseDate"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="Type"></label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="Type" value="@ViewBag.IncidentDetails.Type" />
-                        <span class="text-danger" asp-validation-for="Type"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="Type"></label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="Type" />
+                    <span class="text-danger" asp-validation-for="Type"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="ApplicationType">Application Type</label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="ApplicationType" value="@ViewBag.IncidentDetails.ApplicationType" />
-                        <span class="text-danger" asp-validation-for="ApplicationType"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="ApplicationType">Application Type</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="ApplicationType"  />
+                    <span class="text-danger" asp-validation-for="ApplicationType"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="Urgency"></label>
-                    <div class="col-9">
-                        <select class="form-select form-select-sm" asp-for="Urgency">
-                            @if (ViewBag.IncidentDetails.Urgency == "Hight")
-                            {
-                                <option selected value="Hight">Hight</option>
-                                <option value="Medium">Medium</option>
-                                <option value="Low">Low</option>
-                            }
-                            else if (ViewBag.IncidentDetails.Urgency == "Medium")
-                            {
-                                <option value="Hight">Hight</option>
-                                <option selected value="Medium">Medium</option>
-                                <option value="Low">Low</option>
-                            }
-                            else if (ViewBag.IncidentDetails.Urgency == "Low")
-                            {
-                                <option value="Hight">Hight</option>
-                                <option value="Medium">Medium</option>
-                                <option selected value="Low">Low</option>
-                            }
-                        </select>
-                        <span class="text-danger" asp-validation-for="Urgency"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="Urgency"></label>
+                <div class="col-9">
+                    <select class="form-select form-select-sm" asp-for="Urgency">
+                        @if (Model.Urgency == "Hight")
+                        {
+                            <option selected value="Hight">Hight</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        }
+                        else if (Model.Urgency == "Medium")
+                        {
+                            <option value="Hight">Hight</option>
+                            <option selected value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        }
+                        else if (Model.Urgency == "Low")
+                        {
+                            <option value="Hight">Hight</option>
+                            <option value="Medium">Medium</option>
+                            <option selected value="Low">Low</option>
+                        }
+                    </select>
+                    <span class="text-danger" asp-validation-for="Urgency"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="SubCause">Sub Cause</label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="SubCause" value="@ViewBag.IncidentDetails.SubCause" />
-                        <span class="text-danger" asp-validation-for="SubCause"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="SubCause">Sub Cause</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="SubCause" />
+                    <span class="text-danger" asp-validation-for="SubCause"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="ProblemSummery">Problem Summery</label>
-                    <div class="col-9 mb-2">
-                        <input class="form-control form-control-sm" rows="3" type="textarea" asp-for="ProblemSummery" value="@ViewBag.IncidentDetails.ProblemSummery" />
-
-                        @* <textarea class="form-control form-control-sm" rows="3" asp-for="ProblemSummery" style="resize: none;">@ViewBag.IncidentDetails.ProblemSummery</textarea> *@
-                        <span class="text-danger" asp-validation-for="ProblemSummery"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="ProblemSummery">Problem Summery</label>
+                <div class="col-9 mb-2">
+                    <textarea class="form-control form-control-sm" rows="3" asp-for="ProblemSummery" style="resize: none;"></textarea>
+                    <span class="text-danger" asp-validation-for="ProblemSummery"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="ProblemDescription">Problem Description</label>
-                    <div class="col-9 mb-2">
-                        <textarea class="form-control form-control-sm" rows="3" asp-for="ProblemDescription" style="resize: none;">@ViewBag.IncidentDetails.ProblemDescription</textarea>
-                        <span class="text-danger" asp-validation-for="ProblemDescription"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="ProblemDescription">Problem Description</label>
+                <div class="col-9 mb-2">
+                    <textarea class="form-control form-control-sm" rows="3" asp-for="ProblemDescription" style="resize: none;"></textarea>
+                    <span class="text-danger" asp-validation-for="ProblemDescription"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="Solution"></label>
-                    <div class="col-9 mb-2">
-                        <textarea class="form-control form-control-sm" asp-for="Solution" rows="3" style="resize: none;">@ViewBag.IncidentDetails.Solution</textarea>
-                        <span class="text-danger" asp-validation-for="Solution"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="Solution"></label>
+                <div class="col-9 mb-2">
+                    <textarea class="form-control form-control-sm" asp-for="Solution" rows="3" style="resize: none;"></textarea>
+                    <span class="text-danger" asp-validation-for="Solution"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end">Origin</label>
-                    <div class="col-9">
-                        <select id="originSelect" class="form-select form-select-sm" asp-for="OriginId">
-                            <option></option>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end">Origin</label>
+                <div class="col-9">
+                    <select id="originSelect" class="form-select form-select-sm" asp-for="OriginId">
+                        <option></option>
+                        @if (ViewBag.Origins != null)
+                        {
                             @foreach (var origin in ViewBag.Origins)
                             {
-                                if (origin.Id == ViewBag.IncidentDetails.OriginId)
+                                if (origin.Id == Model.OriginId)
                                 {
                                     <option selected value="@origin.Id">@origin.Name</option>
-
                                 }
                                 else
                                 {
                                     <option value="@origin.Id">@origin.Name</option>
                                 }
                             }
-                        </select>
-                    </div>
+                        }
+                    </select>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end">Ambit</label>
-                    <div class="col-9">
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end">Ambit</label>
+                <div class="col-9">
+                    @if (ViewBag.Ambits != null)
+                    {
+                        <select id="ambitSelect" class="form-select form-select-sm" asp-for="AmbitId">
+                        
+                            <option></option>
+                            @foreach (var ambit in ViewBag.Ambits)
+                            {
+                                if (ambit.Id == Model.AmbitId)
+                                {
+                                    <option selected value="@ambit.Id">@ambit.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@ambit.Id">@ambit.Name</option>
+                                }
+                            }
+                        </select>
+                    }
+                    else
+                    {
                         <select id="ambitSelect" disabled class="form-select form-select-sm" asp-for="AmbitId">
                         </select>
-                    </div>
+                    }
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end">Incident Type</label>
-                    <div class="col-9">
-
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end">Incident Type</label>
+                <div class="col-9">
+                    @if (ViewBag.IncidentTypes != null)
+                    {
+                        <select id="incidentTypeSelect" class="form-select form-select-sm" asp-for="IncidentTypeId">
+                        
+                            <option></option>
+                            @foreach (var incidentType in ViewBag.IncidentTypes)
+                            {
+                                if (incidentType.Id == Model.OriginId)
+                                {
+                                    <option selected value="@incidentType.Id">@incidentType.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@incidentType.Id">@incidentType.Name</option>
+                                }
+                            }
+                        </select>
+                    }
+                    else
+                    {
                         <select id="incidentTypeSelect" disabled class="form-select form-select-sm" asp-for="IncidentTypeId">
                         </select>
-                    </div>
+                    }
+
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="ThirdParty">Third Party</label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="ThirdParty" />
-                        <span class="text-danger" asp-validation-for="ThirdParty"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end">Scenary</label>
-                    <div class="col-9">
-                        <select class="form-select form-select-sm" asp-for="ScenaryId">
-                            <option></option>
-
-                            @foreach (var scenary in ViewBag.Scenarios)
-                            {
-                                <option value="@scenary.Id">@scenary.Name</option>
-                            }
-
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end">Threat</label>
-                    <div class="col-9">
-                        <select class="form-select form-select-sm" asp-for="ThreatId">
-                            <option></option>
-
-                            @foreach (var threat in ViewBag.Threats)
-                            {
-                                <option value="@threat.Id">@threat.Name</option>
-                            }
-
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <div class="d-flex justify-content-end">
-            <button onclick="createIncident()" class="btn btn-primary">Create<i class="fas fa-sign-in-alt"></i></button>
         </div>
-    }
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="ThirdParty">Third Party</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="ThirdParty" />
+                    <span class="text-danger" asp-validation-for="ThirdParty"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end">Scenary</label>
+                <div class="col-9">
+                    <select class="form-select form-select-sm" asp-for="ScenaryId">
+                        <option></option>
+
+                        @foreach (var scenary in ViewBag.Scenarios)
+                        {
+                            <option value="@scenary.Id">@scenary.Name</option>
+                        }
+
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end">Threat</label>
+                <div class="col-9">
+                    <select class="form-select form-select-sm" asp-for="ThreatId">
+                        <option></option>
+
+                        @foreach (var threat in ViewBag.Threats)
+                        {
+                            <option value="@threat.Id">@threat.Name</option>
+                        }
+
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="d-flex justify-content-end">
+        <button onclick="editIncident()" class="btn btn-primary">Edit<i class="fas fa-sign-in-alt"></i></button>
+    </div>
+
 </div>

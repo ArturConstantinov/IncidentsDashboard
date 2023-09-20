@@ -307,6 +307,7 @@
                     $("form").removeData("validator");
                     $("form").removeData("unobtrusiveValidation");
                     $.validator.unobtrusive.parse("form");
+                    selectOptions();
                 }
             });
         }
@@ -331,7 +332,7 @@
                         $("form").removeData("validator");
                         $("form").removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse("form");
-                        loadListUsers();
+                        loadListIncidents();
                     },
                     error: function (response) {
                         $('#contentDiv').html(null);

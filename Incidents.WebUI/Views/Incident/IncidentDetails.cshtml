@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-@model GetIncidentByIdVm;
+@model GetDetailsIncidentByIdVm;
 
 <h1 class="display-5 text-center">Incident Details</h1>
 <div class="container col-md-8">
@@ -16,184 +16,156 @@
     <a onclick="goToIncidentsIndex()" class="btn btn-primary float-end" tabindex="-1" role="button" aria-disabled="true">Back</a>
     <br />
     <br />
-    @if (ViewBag.IncidentDetails != null)
-    {
-        <form class="bg-white" id="detailUserForm" asp-antiforgery="true">
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label asp-for="RequestNr" class="col-sm-3 col-form-label text-end"></label>
-                    <div class="col-sm-9">
-                        <input asp-for="RequestNr" class="form-control form-control-sm" value="@ViewBag.IncidentDetails.RequestNr" disabled />
-                        <span asp-validation-for="RequestNr" class="text-danger"></span>
-                    </div>
+    <form class="bg-white" id="detailUserForm" asp-antiforgery="true">
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label asp-for="RequestNr" class="col-sm-3 col-form-label text-end"></label>
+                <div class="col-sm-9">
+                    <input asp-for="RequestNr" class="form-control form-control-sm" disabled />
+                    <span asp-validation-for="RequestNr" class="text-danger"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="Subsystem">Subsystem</label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="Subsystem" value="@ViewBag.IncidentDetails.Subsystem" disabled />
-                        <span class="text-danger" asp-validation-for="Subsystem"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="Subsystem">Subsystem</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="Subsystem" disabled />
+                    <span class="text-danger" asp-validation-for="Subsystem"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="OpenDate">Open Date</label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="OpenDate" value="@ViewBag.IncidentDetails.OpenDate" disabled />
-                        <span class="text-danger" asp-validation-for="OpenDate"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="OpenDate">Open Date</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="OpenDate" disabled />
+                    <span class="text-danger" asp-validation-for="OpenDate"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="CloseDate">Close Date</label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="CloseDate" value="@ViewBag.IncidentDetails.CloseDate" disabled />
-                        <span class="text-danger" asp-validation-for="CloseDate"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="CloseDate">Close Date</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="CloseDate" disabled />
+                    <span class="text-danger" asp-validation-for="CloseDate"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="Type"></label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="Type" value="@ViewBag.IncidentDetails.Type" disabled />
-                        <span class="text-danger" asp-validation-for="Type"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="Type"></label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="Type" disabled />
+                    <span class="text-danger" asp-validation-for="Type"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="ApplicationType">Application Type</label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="ApplicationType" value="@ViewBag.IncidentDetails.ApplicationType" disabled />
-                        <span class="text-danger" asp-validation-for="ApplicationType"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="ApplicationType">Application Type</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="ApplicationType" disabled />
+                    <span class="text-danger" asp-validation-for="ApplicationType"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="Urgency"></label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="Urgency" value="@ViewBag.IncidentDetails.Urgency" disabled />
-                        <span class="text-danger" asp-validation-for="Urgency"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="Urgency"></label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="Urgency" disabled />
+                    <span class="text-danger" asp-validation-for="Urgency"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="SubCause">Sub Cause</label>
-                    <div class="col-9">
-                        <input class="form-control form-control-sm" type="text" asp-for="SubCause" value="@ViewBag.IncidentDetails.SubCause" disabled />
-                        <span class="text-danger" asp-validation-for="SubCause"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="SubCause">Sub Cause</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="SubCause" disabled />
+                    <span class="text-danger" asp-validation-for="SubCause"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="ProblemSummery">Problem Summery</label>
-                    <div class="col-9 mb-2">
-                        <textarea class="form-control form-control-sm" rows="3" disabled style="resize: none;">@ViewBag.IncidentDetails.ProblemSummery</textarea>
-                        <span class="text-danger" asp-validation-for="ProblemSummery"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="ProblemSummery">Problem Summery</label>
+                <div class="col-9 mb-2">
+                    <textarea class="form-control form-control-sm" asp-for="ProblemSummery" rows="3" disabled style="resize: none;"></textarea>
+                    <span class="text-danger" asp-validation-for="ProblemSummery"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="ProblemDescription">Problem Description</label>
-                    <div class="col-9 mb-2">
-                        <textarea class="form-control form-control-sm" rows="3" disabled style="resize: none;">@ViewBag.IncidentDetails.ProblemDescription</textarea>
-                        <span class="text-danger" asp-validation-for="ProblemDescription"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="ProblemDescription">Problem Description</label>
+                <div class="col-9 mb-2">
+                    <textarea class="form-control form-control-sm" asp-for="ProblemDescription" rows="3" disabled style="resize: none;"></textarea>
+                    <span class="text-danger" asp-validation-for="ProblemDescription"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end" asp-for="Solution"></label>
-                    <div class="col-9 mb-2">
-                        <textarea class="form-control form-control-sm" rows="3" disabled style="resize: none;">@ViewBag.IncidentDetails.Solution</textarea>
-                        <span class="text-danger" asp-validation-for="Solution"></span>
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="Solution"></label>
+                <div class="col-9 mb-2">
+                    <textarea class="form-control form-control-sm" asp-for="Solution" rows="3" disabled style="resize: none;"></textarea>
+                    <span class="text-danger" asp-validation-for="Solution"></span>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end">Origin</label>
-                    <div class="col-9">
-                        @if (ViewBag.Origin != null)
-                        {
-                            <input class="form-control form-control-sm" type="text" value="@ViewBag.Origin.Name" disabled />
-                        }
-                        else
-                        {
-                            <input class="form-control form-control-sm" type="text" disabled />
-                        }
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="Origin"></label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" asp-for="Origin" type="text" disabled />
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end">Ambit</label>
-                    <div class="col-9">
-                        @if (ViewBag.Ambit != null)
-                        {
-                            <input class="form-control form-control-sm" type="text" value="@ViewBag.Ambit.Name" disabled />
-                        }
-                        else
-                        {
-                            <input class="form-control form-control-sm" type="text" disabled />
-                        }
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="Ambit">Ambit</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="Ambit" disabled />
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end">Incident Type</label>
-                    <div class="col-9">
-                        @if (ViewBag.IncidentType != null)
-                        {
-                            <input class="form-control form-control-sm" type="text" value="@ViewBag.IncidentType.Name" disabled />
-                        }
-                        else
-                        {
-                            <input class="form-control form-control-sm" type="text" disabled />
-                        }
-                    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="IncidentType">Incident Type</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="IncidentType" disabled />
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end">Scenary</label>
-                    <div class="col-9">
-                        @if (ViewBag.Scenary != null)
-                        {
-                            <input class="form-control form-control-sm" type="text" value="@ViewBag.Scenary.Name" disabled />
-                        }
-                        else
-                        {
-                            <input class="form-control form-control-sm" type="text" disabled />
-                        }
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-end">Threat</label>
-                    <div class="col-9">
-                        @if (ViewBag.Threat != null)
-                        {
-                            <input class="form-control form-control-sm" type="text" value="@ViewBag.Threat.Name" disabled />
-                        }
-                        else
-                        {
-                            <input class="form-control form-control-sm" type="text" disabled />
-                        }
-                    </div>
-                </div>
-            </div>
-        </form>
-    }
+        </div>
 
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="ThirdParty">Third Party</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="ThirdParty" disabled />
+                    <span class="text-danger" asp-validation-for="ThirdParty"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="Scenary">Scenary</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="Scenary" disabled />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-end" asp-for="Threat">Threat</label>
+                <div class="col-9">
+                    <input class="form-control form-control-sm" type="text" asp-for="Threat" disabled />
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
