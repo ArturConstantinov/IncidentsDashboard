@@ -130,18 +130,19 @@
                 ]
             });
 
-            // let userRole = "operator"; // Замените это на логику получения роли текущего пользователя
+            let userRoles = @Html.Raw(Json.Serialize(ViewBag.Roles));
 
-            // let contextMenuItems = {
-            //     "details": { name: "Details" }
-            // };
+            let isOperator = userRoles.includes("Operator");
 
-            // // Если текущий пользователь не оператор, удаляем опцию "edit" и "delete" из меню
-            // if (userRole !== "operator") {
-            //     delete contextMenuItems["edit"];
-            //     delete contextMenuItems["delete"];
-            // }
+            let contextMenuItems = {
+                "details": { name: "Details" }
+            };
 
+            if (isOperator) {
+                contextMenuItems["edit"] = { name: "Edit" };
+                contextMenuItems["delete"] = { name: "Delete" };
+            }
+            
             let contextmenu = $('#incidentTable').contextMenu({
                 selector: "tr",
                 trigger: "right",
@@ -164,11 +165,12 @@
                             break;
                     }
                 },
-                items: {
-                    "edit": { name: "Edit" },
-                    "details": { name: "Detais" },
-                    "delete": { name: "Delete" }
-                }
+                items: contextMenuItems
+                // items: {
+                //     "edit": { name: "Edit" },
+                //     "details": { name: "Detais" },
+                //     "delete": { name: "Delete" }
+                // }
             })
         }
 
