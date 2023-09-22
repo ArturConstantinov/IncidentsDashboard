@@ -21,6 +21,7 @@ namespace Incidents.Domain.Entities
         public string ThirdParty { get; set; }
         public int ScenaryId { get; set; }
         public int ThreatId { get; set; }
+        public bool IsDeleted { get; set; }
         public IncidentType IncidentType { get; set; }
         public Origin Origin { get; set; }
         public Ambit Ambit { get; set; }

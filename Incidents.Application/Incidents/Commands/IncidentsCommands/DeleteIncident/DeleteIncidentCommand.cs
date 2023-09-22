@@ -24,7 +24,7 @@ namespace Incidents.Application.Incidents.Commands.IncidentsCommands.DeleteIncid
 
             if (entity != null)
             {
-                _context.Incidents.Remove(entity);
+                entity.IsDeleted = true;
             }
 
             return await _context.SaveChangesAsync(cancellationToken);

@@ -1,6 +1,7 @@
 ﻿using Incidents.Application.Common.TableParameters;
 using Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncident;
 using Incidents.Application.Incidents.Commands.IncidentsCommands.DeleteIncident;
+using Incidents.Application.Incidents.Commands.IncidentsCommands.ImportIncident;
 using Incidents.Application.Incidents.Commands.IncidentsCommands.UpdateIncident;
 using Incidents.Application.Incidents.Commands.IncidentsCommands.UpdateIncident.GetUpdateIncidentById;
 using Incidents.Application.Incidents.Queries.AmbitQueries.GetAllAmbits;
@@ -10,6 +11,7 @@ using Incidents.Application.Incidents.Queries.IncidentTypeQueries.GetAllIncedent
 using Incidents.Application.Incidents.Queries.OriginQueries.GetAllOrigins;
 using Incidents.Application.Incidents.Queries.ScenaryQueries.GetAllScenarios;
 using Incidents.Application.Incidents.Queries.ThreatQueries.GetAllThreats;
+using Incidents.WebUI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -191,16 +193,37 @@ namespace Incidents.WebUI.Controllers
         [Authorize(Roles = "Operator")]
         public async Task<IActionResult> GetImportCsv(List<string> errors = null!)
         {
+            var importVm = new ImportIncidentViewModel();
 
-            return View("Import");
+            return View("Import", importVm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Import()
+        public async Task<IActionResult> Import(ImportIncidentViewModel importVm /*IFormFile file*/)
         {
+            //incidentDto.CreatedBy = int.Parse(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //incidentDto.Created = DateTime.Now;
 
-            return View("Index");
+            if(importVm.File != null && importVm.File.Length > 0)
+            {
+                var filePath = Path.GetTempFileName();
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await importVm.File.CopyToAsync(stream);
+                }
+
+                var result = await Mediator.Send(new ImportIncidentCommand { FilePath = filePath });
+
+                //return View("Index");
+                return Ok();
+            }
+
+            ModelState.AddModelError("file", "Select a file to upload");
+            //return View("Import");
+            return BadRequest(ModelState);
+
         }
     }
 }

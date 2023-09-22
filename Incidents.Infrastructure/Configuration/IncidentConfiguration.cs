@@ -92,6 +92,9 @@ namespace Incidents.Infrastructure.Configuration
             builder.Property(x => x.IncidentTypeId)
                 .IsRequired(false);
 
+            builder.Property(x => x.IsDeleted)
+                .HasDefaultValue(false);
+
             //builder.HasData(IncidentsDbContextSeed.Incident);
 
         }

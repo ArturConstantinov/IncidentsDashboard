@@ -39,14 +39,15 @@ namespace Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncid
                 ProblemSummery = request.Dto.ProblemSummery,
                 ProblemDescription = request.Dto.ProblemDescription,
                 Solution = request.Dto.Solution,
-                IncidentType = await _context.IncidentTypes.Where(x => x.Id == request.Dto.IncidentTypeId).FirstOrDefaultAsync(cancellationToken),
+                IncidentTypeId = request.Dto.IncidentTypeId,
+                //IncidentType = await _context.IncidentTypes.Where(x => x.Id == request.Dto.IncidentTypeId).FirstOrDefaultAsync(cancellationToken),
                 AmbitId = request.Dto.AmbitId,
                 OriginId = request.Dto.OriginId,
                 ThirdParty = request.Dto.ThirdParty,
                 ScenaryId = request.Dto.ScenaryId,
                 ThreatId = request.Dto.ThreatId,
-                Scenary = await _context.Scenarios.Where(x => x.Id == request.Dto.ScenaryId).FirstOrDefaultAsync(cancellationToken),
-                Threat = await _context.Threats.Where(x => x.Id == request.Dto.ThreatId).FirstOrDefaultAsync(cancellationToken)
+                //Scenary = await _context.Scenarios.Where(x => x.Id == request.Dto.ScenaryId).FirstOrDefaultAsync(cancellationToken),
+                //Threat = await _context.Threats.Where(x => x.Id == request.Dto.ThreatId).FirstOrDefaultAsync(cancellationToken)
             };
 
             await _context.Incidents.AddAsync(incident);

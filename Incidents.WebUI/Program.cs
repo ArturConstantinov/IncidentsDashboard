@@ -35,7 +35,8 @@ builder.Services.AddFluentValidationClientsideAdapters();
 //builder.Services.AddScoped<IValidator<UpdateUserDto>, UpdateUserDtoValidator>();
 
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+//builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
 
 builder.Services.AddAutoMapper(config =>

@@ -47,6 +47,11 @@ namespace Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncid
             RuleFor(x => x.ThirdParty)
                 .MaximumLength(50).WithMessage("Third Party name should be less then 50 characters");
 
+            RuleFor(x => x.ScenaryId)
+                .NotEmpty().WithMessage("Need to select Scenary");
+
+            RuleFor(x => x.ThreatId)
+                .NotEmpty().WithMessage("Need to select Threat");
         }
     }
 }

@@ -1,11 +1,8 @@
 ﻿using Incidents.Application.Common.Extensions;
 using Incidents.Application.Common.Interfaces;
 using Incidents.Application.Common.TableParameters;
-using Incidents.Application.Incidents.Users.Queries.GetAllUsers;
-using Incidents.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace Incidents.Application.Incidents.Queries.IncidentsQueries.GetAllIncidents
 {
@@ -90,6 +87,7 @@ namespace Incidents.Application.Incidents.Queries.IncidentsQueries.GetAllInciden
             //return incidents;
 
             var incidentList = await _context.Incidents
+                .Where(x => !x.IsDeleted)
                 .Select(x => new GetAllIncidentsVm
                 {
                     Id = x.Id,

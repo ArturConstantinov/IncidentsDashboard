@@ -19,7 +19,7 @@ namespace Incidents.WebUI.Controllers
         {
             var userName = HttpContext.User.FindFirstValue(ClaimTypes.Name);
             var fullName = HttpContext.User.FindFirstValue("FullName");
-            var roles = HttpContext.User.FindFirstValue(ClaimTypes.Role);
+            var roles = HttpContext.User.FindAll(ClaimTypes.Role).Select(x => x.Value);
 
             ViewBag.UserName = userName;
             ViewBag.Roles = roles;

@@ -4,6 +4,7 @@ using Incidents.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Incidents.Infrastructure.Migrations
 {
     [DbContext(typeof(IncidentsDbContext))]
-    partial class IncidentsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230921061420_AddedIsDeletedToIncidents")]
+    partial class AddedIsDeletedToIncidents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

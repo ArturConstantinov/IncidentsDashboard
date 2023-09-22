@@ -112,10 +112,6 @@ namespace Incidents.WebUI.Controllers
         public async Task<IActionResult> UserDetails(int userId)
         {
             var userDetails = await Mediator.Send(new GetDetailsUserByIdQuery { UserId = userId });
-
-            //var roles = await Mediator.Send(new GetAllRolesQuery());
-            //ViewBag.Roles = roles;
-
             return View("UserDetails", userDetails);
         }
     }

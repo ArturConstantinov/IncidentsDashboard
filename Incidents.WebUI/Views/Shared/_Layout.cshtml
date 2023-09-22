@@ -24,20 +24,21 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                     </ul>
-                    @if (ViewBag.Roles == "Administrator")
+                    @foreach (var role in ViewBag.Roles)
                     {
-                        <div class="dropdown">
-                            <a class="nav-link text-dark dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Administarte
-                            </a>
+                        @if (role == "Administrator")
+                        {
+                            <div class="dropdown">
+                                <a class="nav-link text-dark dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Administarte
+                                </a>
 
-                            <ul class="dropdown-menu">
+                                <ul class="dropdown-menu">
 
-                                <li><a onclick="goToUserIndex()" class="nav-link text-dark dropdown-item" role="button" aria-disabled="true">Users</a></li>
-                            </ul>
-
-
-                        </div>
+                                    <li><a onclick="goToUserIndex()" class="nav-link text-dark dropdown-item" role="button" aria-disabled="true">Users</a></li>
+                                </ul>
+                            </div>
+                        }
                     }
 
                     <div class="dropdown">
@@ -88,6 +89,8 @@
             // selectOptions();
         });
 
+        
+
         function goToIncidentsIndex() {
             $.ajax({
                 url: "@Url.Action("Index", "Incident")",
@@ -126,6 +129,19 @@
                     { data: 'urgency' }
                 ]
             });
+
+            // let userRole = "operator"; // Замените это на логику получения роли текущего пользователя
+
+            // let contextMenuItems = {
+            //     "details": { name: "Details" }
+            // };
+
+            // // Если текущий пользователь не оператор, удаляем опцию "edit" и "delete" из меню
+            // if (userRole !== "operator") {
+            //     delete contextMenuItems["edit"];
+            //     delete contextMenuItems["delete"];
+            // }
+
             let contextmenu = $('#incidentTable').contextMenu({
                 selector: "tr",
                 trigger: "right",
@@ -263,7 +279,7 @@
 
         function createIncident() {
             var form = $("#createIncidentForm");
-            if (form.valid()) {
+            // if (form.valid()) {
                 var url = form.attr('action');
 
                 $.ajax({
@@ -279,7 +295,8 @@
                         $("form").removeData("validator");
                         $("form").removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse("form");
-                        loadListIncidents();
+                        // loadListIncidents();
+                        goToIncidentsIndex();
                     },
                     error: function (error) {
                         $('#contentDiv').html(null);
@@ -289,7 +306,7 @@
                         $.validator.unobtrusive.parse("form");
                     }
                 });
-            }
+            // }
         }
 
         function goToIncidentEditPage(incidentId) {
@@ -332,7 +349,8 @@
                         $("form").removeData("validator");
                         $("form").removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse("form");
-                        loadListIncidents();
+                        goToIncidentsIndex();
+                        // loadListIncidents();
                     },
                     error: function (response) {
                         $('#contentDiv').html(null);
@@ -343,6 +361,63 @@
                     }
                 })
             };
+        }
+
+        function goToIncidentImport() {
+            $.ajax({
+                url: "@Url.Action("GetImportCsv", "Incident")",
+                xhrFields: {
+                    withCredentials: true
+                },
+                method: "GET",
+                success: function (response) {
+                    $('#contentDiv').html(null);
+                    $('#contentDiv').html(response);
+                }
+            })
+        }
+
+        function importCsvIncident(){
+            var form = $("#importForm");
+            if (form.valid()) {
+            var url = form.attr('action');
+                var formData = new FormData(form[0]);
+
+            $.ajax({
+                url: url,
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: "POST",
+                success: function (response) {
+                    $('#contentDiv').html(null);
+                    $('#contentDiv').html(response);
+                    $("form").removeData("validator");
+                    $("form").removeData("unobtrusiveValidation");
+                    $.validator.unobtrusive.parse("form");
+                    // loadListIncidents();
+                    goToIncidentsIndex();
+                },
+                error: function (xhr) {
+                        goToIncidentImport();
+
+                    $('#contentDiv').html(null);
+                    $('#contentDiv').html(xhr);
+                    $("form").removeData("validator");
+                    $("form").removeData("unobtrusiveValidation");
+                    $.validator.unobtrusive.parse("form");
+
+                    if (xhr.status === 400){
+                        alert("Error: Select a file to upload");
+                    }
+
+
+                }
+            });
+            }
         }
 
 
