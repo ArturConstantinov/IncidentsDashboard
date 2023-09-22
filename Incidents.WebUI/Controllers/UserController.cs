@@ -65,8 +65,15 @@ namespace Incidents.WebUI.Controllers
                 return await GetCreateUser(errors);
             }
 
-            await Mediator.Send(new CreateUserCommand { UserDto = userDto });
-            return View("Index");
+            var result = await Mediator.Send(new CreateUserCommand { UserDto = userDto });
+
+            if (result == 0)
+            {
+                ModelState.AddModelError("", "User Name or Email alredy exist");
+                return BadRequest(ModelState);
+            }
+
+            return Ok();
         }
 
         [HttpGet]
@@ -102,9 +109,15 @@ namespace Incidents.WebUI.Controllers
                 return await GetEditUser(userId ,errors);
             }
 
-            await Mediator.Send(new UpdateUserCommand { UserDto = userDto });
+            var result = await Mediator.Send(new UpdateUserCommand { UserDto = userDto });
 
-            return View("Index");
+            if (result != -1)
+            {
+                return Ok();
+            }
+
+            ModelState.AddModelError("", "User Name or Email alredy exist");
+            return BadRequest(ModelState);
         }
 
         [HttpGet]

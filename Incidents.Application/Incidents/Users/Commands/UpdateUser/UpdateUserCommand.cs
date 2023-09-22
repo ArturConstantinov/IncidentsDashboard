@@ -29,9 +29,12 @@ namespace Incidents.Application.Incidents.Users.Commands.UpdateUser
                 .Include(u => u.UserRoles)
                 .FirstOrDefaultAsync(x => x.Id == request.UserDto.Id, cancellationToken);
 
-            if (user == null)
+            var existing = await _context.Users.AnyAsync(x => x.Id != request.UserDto.Id && 
+                (x.UserName == request.UserDto.UserName || x.Email == request.UserDto.Email));
+
+            if (user == null || existing == true)
             {
-                return 0;
+                return -1;
             }
 
             if(request.UserDto.Password != null)

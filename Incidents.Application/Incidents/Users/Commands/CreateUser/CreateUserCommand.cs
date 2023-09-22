@@ -2,6 +2,7 @@
 using Incidents.Application.Incidents.DTO;
 using Incidents.Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -10,14 +11,6 @@ namespace Incidents.Application.Incidents.Users.Commands.CreateUser
     public class CreateUserCommand : IRequest<int>
     {
         public CreateUserDto UserDto { get; set; }
-        //public int CreatedBy { get; set; }
-        //public string UserName { get; set; }
-        //public string Password { get; set; }
-        //public string FullName { get; set; }
-        //public string Email { get; set; }
-        //public List<int> RolesId { get; set; }
-
-        //public List<RoleDto> AllRoles { get; set; }
     }
 
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
@@ -31,7 +24,9 @@ namespace Incidents.Application.Incidents.Users.Commands.CreateUser
 
         public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            if (request == null || request.UserDto == null)
+            var existing = await _context.Users.AnyAsync(x => x.UserName == request.UserDto.UserName || x.Email == request.UserDto.Email);
+
+            if (request == null || request.UserDto == null || existing == true)
             {
                 return 0;
             }

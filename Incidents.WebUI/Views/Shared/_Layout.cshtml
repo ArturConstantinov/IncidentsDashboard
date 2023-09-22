@@ -179,6 +179,11 @@
                 async: false,
                 done: function (result) {
                     console.log(result);
+                },
+                error: function(error){
+                    if (error.status === 403) {
+                        alert("Error: Access dined");
+                    }
                 }
             });
         }
@@ -304,6 +309,13 @@
                         $("form").removeData("validator");
                         $("form").removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse("form");
+                        goToIncidentCreate();
+
+                        if (error.status === 400) {
+                            console.log("Error: ", error.responseText);
+                            alert("Error: " + error.responseText);
+                        }
+                        
                     }
                 });
             // }
@@ -325,6 +337,11 @@
                     $("form").removeData("unobtrusiveValidation");
                     $.validator.unobtrusive.parse("form");
                     selectOptions();
+                },
+                error: function(error){
+                    if (error.status === 403) {
+                        alert("Error: Access dined");
+                    }
                 }
             });
         }
@@ -352,12 +369,19 @@
                         goToIncidentsIndex();
                         // loadListIncidents();
                     },
-                    error: function (response) {
+                    error: function (error) {
                         $('#contentDiv').html(null);
-                        $('#contentDiv').html(response);
+                        $('#contentDiv').html(error);
                         $("form").removeData("validator");
                         $("form").removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse("form");
+
+                        if (error.status === 400) {
+                            console.log("Error: ", error.responseText);
+                            alert("Error: " + error.responseText);
+                            goToIncidentEditPage(incidentId);
+                        }
+                        
                     }
                 })
             };
@@ -401,19 +425,18 @@
                     // loadListIncidents();
                     goToIncidentsIndex();
                 },
-                error: function (xhr) {
-                        goToIncidentImport();
-
+                error: function (error) {
                     $('#contentDiv').html(null);
-                    $('#contentDiv').html(xhr);
+                    $('#contentDiv').html(error);
                     $("form").removeData("validator");
                     $("form").removeData("unobtrusiveValidation");
                     $.validator.unobtrusive.parse("form");
 
-                    if (xhr.status === 400){
-                        alert("Error: Select a file to upload");
+                    if (error.status === 400) {
+                        console.log("Error: ", error.responseText);
+                        alert("Error: " + error.responseText);
                     }
-
+                    goToIncidentImport();
 
                 }
             });
@@ -534,7 +557,7 @@
                         $("form").removeData("validator");
                         $("form").removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse("form");
-                        loadListUsers();
+                        goToUserIndex();
                     },
                     error: function (error) {
                         $('#contentDiv').html(null);
@@ -542,6 +565,12 @@
                         $("form").removeData("validator");
                         $("form").removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse("form");
+
+                        goToUserCreate();
+                        if (error.status === 400) {
+                            console.log("Error: ", error.responseText);
+                            alert("Error: " + error.responseText);
+                        }
                     }
                 });
             }
@@ -616,14 +645,20 @@
                         $("form").removeData("validator");
                         $("form").removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse("form");
-                        loadListUsers();
+                        goToUserIndex();
                     },
-                    error: function (response) {
+                    error: function (error) {
                         $('#contentDiv').html(null);
-                        $('#contentDiv').html(response);
+                        $('#contentDiv').html(error);
                         $("form").removeData("validator");
                         $("form").removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse("form");
+
+                        goToUserEditPage(userId);
+                        if (error.status === 400) {
+                            console.log("Error: ", error.responseText);
+                            alert("Error: " + error.responseText);
+                        }
                     }
                 })
             };

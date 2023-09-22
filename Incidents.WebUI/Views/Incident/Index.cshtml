@@ -8,18 +8,18 @@
             Incidents
         </div>
         <div class="card-body">
-           @*  @foreach (var role in ViewBag.Roles)
+            @foreach (var role in ViewBag.Roles)
             {
                 @if (role == "Operator")
-                { *@
+                {
                     <div class=" float-end">
                         <a onclick="goToIncidentImport()" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Import from CSV</a>
                         <a onclick="goToIncidentCreate()" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Create Incident</a>
                     </div>
                     <br />
                     <br />
-             @*    }
-            } *@
+                }
+            }
             
             <div class="table-wrapper">
                 <table id="incidentTable" class="data mt-2 table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0" style="width:100%">

@@ -26,6 +26,13 @@ namespace Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncid
                 return 0;
             }
 
+            var existing = await _context.Incidents.AnyAsync(x => x.RequestNr == request.Dto.RequestNr);
+
+            if (existing == true)
+            {
+                return 0;
+            }
+
             var incident = new Incident
             {
                 CreatedBy = request.Dto.CreatedBy,
@@ -40,14 +47,11 @@ namespace Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncid
                 ProblemDescription = request.Dto.ProblemDescription,
                 Solution = request.Dto.Solution,
                 IncidentTypeId = request.Dto.IncidentTypeId,
-                //IncidentType = await _context.IncidentTypes.Where(x => x.Id == request.Dto.IncidentTypeId).FirstOrDefaultAsync(cancellationToken),
                 AmbitId = request.Dto.AmbitId,
                 OriginId = request.Dto.OriginId,
                 ThirdParty = request.Dto.ThirdParty,
                 ScenaryId = request.Dto.ScenaryId,
                 ThreatId = request.Dto.ThreatId,
-                //Scenary = await _context.Scenarios.Where(x => x.Id == request.Dto.ScenaryId).FirstOrDefaultAsync(cancellationToken),
-                //Threat = await _context.Threats.Where(x => x.Id == request.Dto.ThreatId).FirstOrDefaultAsync(cancellationToken)
             };
 
             await _context.Incidents.AddAsync(incident);

@@ -110,7 +110,15 @@ namespace Incidents.WebUI.Controllers
             }
 
             var result = await Mediator.Send(new CreateIncidentCommand { Dto = incidentDto });
-            return View("Index");
+
+
+            if (result == 0)
+            {
+                ModelState.AddModelError("requestNr", "Request Number alredy exist");
+                return BadRequest(ModelState);
+            }
+
+            return Ok();
 
         }
 
@@ -184,14 +192,19 @@ namespace Incidents.WebUI.Controllers
                 return await GetEditIncident(incidentId, errors);
             }
 
-            await Mediator.Send(new UpdateIncidentCommand { Dto = incidentDto });
+            var result = await Mediator.Send(new UpdateIncidentCommand { Dto = incidentDto });
 
-            return View("Index");
+            if (result != -1)
+            {
+                return Ok();
+            }
+            ModelState.AddModelError("", "Request number alredy exist");
+            return BadRequest(ModelState);
         }
 
         [HttpGet]
         [Authorize(Roles = "Operator")]
-        public async Task<IActionResult> GetImportCsv(List<string> errors = null!)
+        public IActionResult GetImportCsv(List<string> errors = null!)
         {
             var importVm = new ImportIncidentViewModel();
 
@@ -200,11 +213,8 @@ namespace Incidents.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Import(ImportIncidentViewModel importVm /*IFormFile file*/)
+        public async Task<IActionResult> Import(ImportIncidentViewModel importVm)
         {
-            //incidentDto.CreatedBy = int.Parse(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
-            //incidentDto.Created = DateTime.Now;
-
             if(importVm.File != null && importVm.File.Length > 0)
             {
                 var filePath = Path.GetTempFileName();
@@ -216,12 +226,16 @@ namespace Incidents.WebUI.Controllers
 
                 var result = await Mediator.Send(new ImportIncidentCommand { FilePath = filePath });
 
-                //return View("Index");
+                if (result == 0)
+                {
+                    ModelState.AddModelError("", "Incorrect data in CSV file or data alredy exist");
+                    return BadRequest(ModelState);
+                }
+
                 return Ok();
             }
 
             ModelState.AddModelError("file", "Select a file to upload");
-            //return View("Import");
             return BadRequest(ModelState);
 
         }

@@ -22,13 +22,8 @@ namespace Incidents.Application.Incidents.Commands.IncidentsCommands.ImportIncid
         public string? Origin { get; set; }
         public string? Ambit { get; set; }
         public string? IncidentType { get; set; }
-        //public int? IncidentTypeId { get; set; }
-        //public int? AmbitId { get; set; }
-        //public int? OriginId { get; set; }
         public string ThirdParty { get; set; }
         public string Scenary { get; set; }
         public string Threat { get; set; }
-        //public int ScenaryId { get; set; }
-        //public int ThreatId { get; set; }
     }
 }

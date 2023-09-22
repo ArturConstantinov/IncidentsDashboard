@@ -74,20 +74,8 @@
         <div class="col-sm-12">
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-end" asp-for="IsEnabled">Enabled</label>
-                <div class="col-9">
-                    <select class="form-select form-select-sm" asp-for="IsEnabled">
-                        @if (Model.IsEnabled.ToString() == "True")
-                        {
-                            <option value="true" selected>True</option>
-                            <option value="false">False</option>
-                        }
-                        else
-                        {
-                            <option value="true">True</option>
-                            <option value="false" selected>False</option>
-                        }
-                    </select>
-                    <span class="text-danger" asp-validation-for="IsEnabled"></span>
+                <div class="col-8 form-check form-switch ms-3 d-flex align-items-center">
+                    <input class="form-check-sm form-check-input" asp-for="IsEnabled" type="checkbox">
                 </div>
             </div>
         </div>
@@ -116,6 +104,6 @@
         </div>
     </form>
     <div class="d-flex justify-content-end">
-        <button id="modifyUserSubmitForm" onclick="editUser()" class="btn btn-primary">Edit<i class="fas fa-sign-in-alt"></i></button>
+        <button id="modifyUserSubmitForm" onclick="editUser(@Model.Id)" class="btn btn-primary">Edit<i class="fas fa-sign-in-alt"></i></button>
     </div>
 </div>

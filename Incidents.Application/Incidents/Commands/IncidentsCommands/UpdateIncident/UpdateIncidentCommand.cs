@@ -23,9 +23,11 @@ namespace Incidents.Application.Incidents.Commands.IncidentsCommands.UpdateIncid
             var incident = await _context.Incidents
                 .FirstOrDefaultAsync(x => x.Id == request.Dto.Id, cancellationToken);
 
-            if (incident == null)
+            var existing = await _context.Incidents.AnyAsync(x => x.Id != request.Dto.Id && x.RequestNr == request.Dto.RequestNr);
+
+            if (incident == null || existing == true)
             {
-                return 0;
+                return -1;
             }
 
             incident.RequestNr = request.Dto.RequestNr;
