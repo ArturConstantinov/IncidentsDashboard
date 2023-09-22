@@ -4,20 +4,12 @@ using Incidents.Application.Incidents.Commands.IncidentsCommands.DeleteIncident;
 using Incidents.Application.Incidents.Commands.IncidentsCommands.UpdateIncident;
 using Incidents.Application.Incidents.Commands.IncidentsCommands.UpdateIncident.GetUpdateIncidentById;
 using Incidents.Application.Incidents.Queries.AmbitQueries.GetAllAmbits;
-using Incidents.Application.Incidents.Queries.AmbitQueries.GetAmbitById;
 using Incidents.Application.Incidents.Queries.IncidentsQueries.GetAllIncidents;
 using Incidents.Application.Incidents.Queries.IncidentsQueries.GetIncidentById;
 using Incidents.Application.Incidents.Queries.IncidentTypeQueries.GetAllIncedentTypes;
-using Incidents.Application.Incidents.Queries.IncidentTypeQueries.GetIncidentTypeById;
 using Incidents.Application.Incidents.Queries.OriginQueries.GetAllOrigins;
-using Incidents.Application.Incidents.Queries.OriginQueries.GetOriginById;
-using Incidents.Application.Incidents.Queries.RoleQueries.GetAllRoles;
 using Incidents.Application.Incidents.Queries.ScenaryQueries.GetAllScenarios;
-using Incidents.Application.Incidents.Queries.ScenaryQueries.GetScenaryById;
 using Incidents.Application.Incidents.Queries.ThreatQueries.GetAllThreats;
-using Incidents.Application.Incidents.Queries.ThreatQueries.GetThreatById;
-using Incidents.Application.Incidents.Users.Commands.UpdateUser;
-using Incidents.Application.Incidents.Users.Queries.GetUserById;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -28,6 +20,10 @@ namespace Incidents.WebUI.Controllers
     {
         public IActionResult Index()
         {
+            var roles = HttpContext.User.FindAll(ClaimTypes.Role).Select(x => x.Value);
+
+            ViewBag.Roles = roles;
+
             return View();
         }
 
@@ -117,6 +113,7 @@ namespace Incidents.WebUI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Operator")]
         public async Task<IActionResult> DeleteIncident(int incidentId)
         {
             await Mediator.Send(new DeleteIncidentCommand { Id = incidentId });
@@ -140,8 +137,6 @@ namespace Incidents.WebUI.Controllers
             {
                 throw new Exception("Incident is Null");
             }
-            //ViewBag.IncidentDetails = incidentDetails;
-            //ViewBag.IncidentId = incidentId;
 
             if (incidentDetails.OriginId != null)
             {
@@ -188,6 +183,22 @@ namespace Incidents.WebUI.Controllers
             }
 
             await Mediator.Send(new UpdateIncidentCommand { Dto = incidentDto });
+
+            return View("Index");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Operator")]
+        public async Task<IActionResult> GetImportCsv(List<string> errors = null!)
+        {
+
+            return View("Import");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Import()
+        {
 
             return View("Index");
         }
