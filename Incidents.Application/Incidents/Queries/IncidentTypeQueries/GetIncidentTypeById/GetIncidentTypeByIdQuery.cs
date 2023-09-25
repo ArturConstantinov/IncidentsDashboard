@@ -28,7 +28,6 @@ namespace Incidents.Application.Incidents.Queries.IncidentTypeQueries.GetInciden
                 .Select(x => new GetIncidentTypeByIdVm
                 {
                     Name = x.Name,
-                    //AmbitToType = x.AmbitsToTypes.Where(x => x.TypeId == request.TypeId).Select(x => x.AmbitId).FirstOrDefault(),
                 })
                 .FirstOrDefaultAsync(cancellationToken);
 

@@ -27,26 +27,6 @@ namespace Incidents.Application.Incidents.Queries.IncidentsQueries.GetIncidentBy
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Incident, GetDetailsIncidentByIdVm>();
-
-                //.ForMember(x => x.RequestNr, option => option.MapFrom(x => x.RequestNr))
-                //.ForMember(x => x.Subsystem, option => option.MapFrom(x => x.Subsystem))
-                //.ForMember(x => x.OpenDate, option => option.MapFrom(x => x.OpenDate))
-                //.ForMember(x => x.CloseDate, option => option.MapFrom(x => x.CloseDate))
-                //.ForMember(x => x.Type, option => option.MapFrom(x => x.Type))
-                //.ForMember(x => x.ApplicationType, option => option.MapFrom(x => x.ApplicationType))
-                //.ForMember(x => x.Urgency, option => option.MapFrom(x => x.Urgency))
-                //.ForMember(x => x.SubCause, option => option.MapFrom(x => x.SubCause))
-                //.ForMember(x => x.ProblemSummery, option => option.MapFrom(x => x.ProblemSummery))
-                //.ForMember(x => x.ProblemDescription, option => option.MapFrom(x => x.ProblemDescription))
-                //.ForMember(x => x.Solution, option => option.MapFrom(x => x.Solution))
-                //.ForMember(x => x.IncidentTypeId, option => option.MapFrom(x => x.IncidentTypeId))
-                //.ForMember(x => x.AmbitId, option => option.MapFrom(x => x.AmbitId))
-                //.ForMember(x => x.OriginId, option => option.MapFrom(x => x.OriginId))
-                //.ForMember(x => x.ThirdParty, option => option.MapFrom(x => x.ThirdParty))
-                //.ForMember(x => x.ScenaryId, option => option.MapFrom(x => x.ScenaryId))
-                //.ForMember(x => x.ThreatId, option => option.MapFrom(x => x.ThreatId));
-
-
         }
     }
 }

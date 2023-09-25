@@ -10,8 +10,6 @@ namespace Incidents.Application.Incidents.Users.Commands.UpdateUser
     public class UpdateUserCommand : IRequest<int>
     {
         public UpdateUserDto UserDto { get; set; }
-
-        //public List<string> UserRoles { get; set; } = new List<string>();
     }
 
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, int>

@@ -11,7 +11,7 @@ namespace Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncid
                 .Length(17).WithMessage("RequestNr must heve 17 characters");
 
             RuleFor(x => x.Subsystem)
-                //.NotEmpty().WithMessage("Subsystem cannot be empty")
+                .NotEmpty().WithMessage("Subsystem cannot be empty")
                 .Length(2).WithMessage("Subsystem must heve 2 characters");
 
             RuleFor(x => x.OpenDate)

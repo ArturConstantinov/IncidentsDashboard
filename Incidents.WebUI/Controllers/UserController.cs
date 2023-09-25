@@ -51,8 +51,7 @@ namespace Incidents.WebUI.Controllers
         public async Task<IActionResult> GetCreateUser(List<string> errors = null!)
         {
             ViewBag.Erroe = errors;
-            //var roles = await Mediator.Send(new GetAllRolesQuery());
-            ViewBag.Roles = await GetRolesSelectListAsync();//roles;
+            ViewBag.Roles = await GetRolesSelectListAsync();
 
 
 
@@ -97,8 +96,7 @@ namespace Incidents.WebUI.Controllers
         {
             ViewBag.Error = errors;
             var userDetails = await Mediator.Send(new GetUpdateUserByIdQuery { UserId = userId });
-            ViewBag.Roles = await GetRolesSelectListAsync();//roles;
-            //var roles = await Mediator.Send(new GetAllRolesQuery());
+            ViewBag.Roles = await GetRolesSelectListAsync();
 
             return View("EditUser", userDetails);
         }

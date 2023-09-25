@@ -15,7 +15,6 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Incidents</a> *@
                 <a class="navbar-brand" role="button" onclick="goToIncidentsIndex()">Incidents</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -168,11 +167,6 @@
                     }
                 },
                 items: contextMenuItems
-                // items: {
-                //     "edit": { name: "Edit" },
-                //     "details": { name: "Detais" },
-                //     "delete": { name: "Delete" }
-                // }
             })
         }
 
@@ -248,9 +242,7 @@
                                 $('#ambitSelect').append(new Option(value.name, value.id));
                             });
                             $('#ambitSelect').prop('disabled', data.length === 0);
-                            // if ($('#ambitSelect').prop('disabled', true)) { 
-                                $('#incidentTypeSelect').prop('disabled', true);
-                            // }
+                            $('#incidentTypeSelect').prop('disabled', true);
                         }
                     });
                 } else {
@@ -304,7 +296,6 @@
                         $("form").removeData("validator");
                         $("form").removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse("form");
-                        // loadListIncidents();
                         goToIncidentsIndex();
                     },
                     error: function (error) {
@@ -372,7 +363,6 @@
                         $("form").removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse("form");
                         goToIncidentsIndex();
-                        // loadListIncidents();
                     },
                     error: function (error) {
                         $('#contentDiv').html(null);
@@ -427,7 +417,6 @@
                     $("form").removeData("validator");
                     $("form").removeData("unobtrusiveValidation");
                     $.validator.unobtrusive.parse("form");
-                    // loadListIncidents();
                     goToIncidentsIndex();
                 },
                 error: function (error) {
@@ -539,7 +528,6 @@
                     $("form").removeData("validator");
                     $("form").removeData("unobtrusiveValidation");
                     $.validator.unobtrusive.parse("form");
-                    //$("#roleSelect").multiselect();
                     $("#roleSelect").multiselect({
                         templates: {
                             button: '<button type="button" class="multiselect dropdown-toggle btn btn-light" data-bs-toggle="dropdown" aria-expanded="false"><span class="multiselect-selected-text"></span></button>', }, });

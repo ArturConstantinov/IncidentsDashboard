@@ -51,17 +51,10 @@ namespace Incidents.Infrastructure.Configuration
             builder.Property(x => x.ThirdParty)
                 .HasMaxLength(50);
 
-            //builder.HasIndex(x => x.ScenaryId)
-            //    .IsUnique(false);
-
             builder.HasOne(x => x.Scenary)
                 .WithMany(x => x.Incidents)
                 .HasForeignKey(x => x.ScenaryId)
                 .OnDelete(DeleteBehavior.NoAction);
-
-
-            //builder.HasIndex(x => x.ThreatId)
-            //    .IsUnique(false);
 
             builder.HasOne(x => x.Threat)
                 .WithMany(x => x.Incidents)
@@ -94,9 +87,6 @@ namespace Incidents.Infrastructure.Configuration
 
             builder.Property(x => x.IsDeleted)
                 .HasDefaultValue(false);
-
-            //builder.HasData(IncidentsDbContextSeed.Incident);
-
         }
     }
 }

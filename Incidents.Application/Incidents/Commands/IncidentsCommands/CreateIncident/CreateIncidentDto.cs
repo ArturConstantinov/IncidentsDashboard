@@ -6,7 +6,6 @@ namespace Incidents.Application.Incidents.Commands.IncidentsCommands.CreateIncid
     {
         public int CreatedBy { get; set; }
         public string RequestNr { get; set; }
-        //public DateTime OpenDate { get => DateTime.Now; set => OpenDate = value; } // call error stack owerflow
         private DateTime openDate = DateTime.Now;
         public DateTime OpenDate { get => openDate; set => openDate = value; }
         public string Subsystem { get; set; }

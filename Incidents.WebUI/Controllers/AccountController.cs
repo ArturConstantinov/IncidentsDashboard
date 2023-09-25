@@ -57,7 +57,6 @@ namespace Incidents.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                //Console.WriteLine(ex.StackTrace);
                 return View("Login");
             }
         }

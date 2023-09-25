@@ -24,7 +24,6 @@ namespace Incidents.Application.Incidents.Queries.IncidentsQueries.GetIncidentBy
         public async Task<GetDetailsIncidentByIdVm> Handle(GetDeatilsIncidentByIdQuery request, CancellationToken cancellationToken)
         {
             var incidentVm = await _context.Incidents
-                //.Include(x => x.)
                 .Where(x => x.Id == request.Id)
                 .Select(x => new GetDetailsIncidentByIdVm
                 {

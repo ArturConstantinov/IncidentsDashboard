@@ -10,8 +10,6 @@ namespace Incidents.Application
         {
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-            //services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
-
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 

@@ -38,7 +38,6 @@ namespace Incidents.Application.Incidents.Users.Queries.GetUserById
                 .FirstOrDefaultAsync(cancellationToken);
 
             return _mapper.Map<GetDetailsUserByIdVm>(userVm);
-            //return userVm;
         }
     }
 }

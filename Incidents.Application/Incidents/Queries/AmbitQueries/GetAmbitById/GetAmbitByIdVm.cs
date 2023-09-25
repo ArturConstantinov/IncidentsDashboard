@@ -13,7 +13,6 @@ namespace Incidents.Application.Incidents.Queries.AmbitQueries.GetAmbitById
         {
             profile.CreateMap<Ambit, GetAmbitByIdVm>()
                 .ForMember(x => x.Name, option => option.MapFrom(x => x.Name));
-                //.ForMember(x => x.OriginId, option => option.MapFrom(x => x.OriginId));
         }
     }
 }
