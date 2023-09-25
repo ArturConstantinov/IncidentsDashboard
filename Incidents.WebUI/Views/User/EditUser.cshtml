@@ -82,7 +82,21 @@
         <div class="col-sm-12">
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-end" asp-for="UserRoles">Role</label>
-                <div class="col-9">
+
+                <div class="col-sm-8">
+                    <select asp-for="UserRoles" asp-items="ViewBag.Roles"
+                            id="roleSelect"
+                            asp-data-style="btn-select"
+                            asp-data-size="10"
+                            class="form-control form-control-sm selectpicker show-tick"
+                            multiple="multiple">
+                    </select>
+                    <br />
+                    <span class="text-danger" asp-validation-for="UserRoles"></span>
+                </div>
+                
+
+                @* <div class="col-9">
                     <select class="form-select" asp-for="UserRoles">
                         @foreach (var role in ViewBag.Roles)
                         {
@@ -96,10 +110,8 @@
                             }
                         }
                     </select>
-                </div>
+                </div> *@
             </div>
-            <span class="text-danger" asp-validation-for="UserRoles"></span>
-            <br />
 
         </div>
     </form>

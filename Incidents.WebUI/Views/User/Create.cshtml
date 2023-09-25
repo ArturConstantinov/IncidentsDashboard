@@ -17,8 +17,8 @@
     <a onclick="goToUserIndex()" class="btn btn-primary float-end" tabindex="-1" role="button" aria-disabled="true">Back</a>
     <br />
     <br />
-    <form class="bg-white" id="createUserForm" asp-controller="User" 
-    asp-action="CreateUsers" asp-antiforgery="true" method="post">
+    <form class="bg-white" id="createUserForm" asp-controller="User"
+          asp-action="CreateUsers" asp-antiforgery="true" method="post">
         <div class="col-sm-12">
             <div class="form-group row">
                 <label asp-for="UserName" class="col-sm-3 col-form-label text-end"></label>
@@ -67,25 +67,54 @@
         <div class="col-sm-12">
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-end" asp-for="RolesId">Role</label>
+
+                @* <select id="roleSelect" class="select" multiple="multiple">
                 <div class="col-9">
-                    <select class="form-select form-select-sm" asp-for="RolesId">
-                    @foreach (var role in ViewBag.Roles)
-                    {
-                        @if (1 == role.Id)
-                        {
-                            <option value="@role.Id" selected>@role.Name</option>
-                        }
-                        else
-                        {
-                            <option value="@role.Id">@role.Name</option>
-                        }
-                    }
-                    </select>
+                <select class="form-select form-select-sm" asp-for="RolesId">
+                @foreach (var role in ViewBag.Roles)
+                {
+                @if (1 == role.Id)
+                {
+                <option value="@role.Id" selected>@role.Name</option>
+                }
+                else
+                {
+                <option value="@role.Id">@role.Name</option>
+                }
+                }
+                </select>
                 </div>
+                </select> *@
+                <div class="col-sm-9">
+                    <select asp-for="RolesId" asp-items="ViewBag.Roles"
+                            id="roleSelect"
+                            asp-data-style="btn-select"
+                            asp-data-size="10"
+                            class="form-control form-control-sm selectpicker show-tick"
+                            multiple="multiple">
+                    </select>
+                    <br />
+                    <span asp-validation-for="RolesId" class="text-danger"></span>
+                </div>
+               
+                @* <div class="col-9">
+                <select class="form-select form-select-sm" asp-for="RolesId">
+                @foreach (var role in ViewBag.Roles)
+                {
+                @if (1 == role.Id)
+                {
+                <option value="@role.Id" selected>@role.Name</option>
+                }
+                else
+                {
+                <option value="@role.Id">@role.Name</option>
+                }
+                }
+                </select>
+                </div> *@
             </div>
-            <br />
-            <span class="text-danger" asp-validation-for="RolesId"></span>
         </div>
+
     </form>
     <div class="d-flex justify-content-end">
         <button onclick="createUser()" class="btn btn-primary">Create<i class="fas fa-sign-in-alt"></i></button>

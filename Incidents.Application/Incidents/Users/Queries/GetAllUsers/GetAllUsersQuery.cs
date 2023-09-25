@@ -2,10 +2,8 @@
 using Incidents.Application.Common.Extensions;
 using Incidents.Application.Common.Interfaces;
 using Incidents.Application.Common.TableParameters;
-using Incidents.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace Incidents.Application.Incidents.Users.Queries.GetAllUsers
 {

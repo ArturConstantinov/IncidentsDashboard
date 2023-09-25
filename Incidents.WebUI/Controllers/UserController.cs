@@ -7,6 +7,7 @@ using Incidents.Application.Incidents.Users.Queries.GetAllUsers;
 using Incidents.Application.Incidents.Users.Queries.GetUserById;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 
 namespace Incidents.WebUI.Controllers
@@ -33,13 +34,27 @@ namespace Incidents.WebUI.Controllers
             });
         }
 
+        private async Task<IEnumerable<SelectListItem>> GetRolesSelectListAsync()
+        {
+            var rolesListVm = await Mediator.Send(new GetAllRolesQuery());
+
+            return rolesListVm.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name,
+                Selected = false,
+            });
+        }
+
         [HttpGet]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetCreateUser(List<string> errors = null!)
         {
             ViewBag.Erroe = errors;
-            var roles = await Mediator.Send(new GetAllRolesQuery());
-            ViewBag.Roles = roles;
+            //var roles = await Mediator.Send(new GetAllRolesQuery());
+            ViewBag.Roles = await GetRolesSelectListAsync();//roles;
+
+
 
             var createUserDro = new CreateUserDto();
             return View("Create", createUserDro);
@@ -82,8 +97,8 @@ namespace Incidents.WebUI.Controllers
         {
             ViewBag.Error = errors;
             var userDetails = await Mediator.Send(new GetUpdateUserByIdQuery { UserId = userId });
-            var roles = await Mediator.Send(new GetAllRolesQuery());
-            ViewBag.Roles = roles;
+            ViewBag.Roles = await GetRolesSelectListAsync();//roles;
+            //var roles = await Mediator.Send(new GetAllRolesQuery());
 
             return View("EditUser", userDetails);
         }

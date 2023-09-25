@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/Incidents.WebUI.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/DataTables/datatables.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ContextMenu/jquery.contextMenu.min.css">
+    <link rel="stylesheet" href="css/bootstrap-multiselect.css">
 </head>
 <body>
     <header>
@@ -76,12 +77,13 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.min.js"></script>
     <script type="text/javascript" src="~/DataTables/datatables.min.js"></script>
     <script type="text/javascript" src="~/DataTables/DataTables-1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script type="text/javascript" src="~/ContextMenu/jquery.contextMenu.min.js"></script>
     <script type="text/javascript" src="~/ContextMenu/jquery.ui.position.js"></script>
     <script type="text/javascript" src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript" src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -286,7 +288,7 @@
 
         function createIncident() {
             var form = $("#createIncidentForm");
-            // if (form.valid()) {
+            if (form.valid()) {
                 var url = form.attr('action');
 
                 $.ajax({
@@ -311,16 +313,17 @@
                         $("form").removeData("validator");
                         $("form").removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse("form");
-                        goToIncidentCreate();
+                        
 
                         if (error.status === 400) {
                             console.log("Error: ", error.responseText);
                             alert("Error: " + error.responseText);
+                            goToIncidentCreate();
                         }
                         
                     }
                 });
-            // }
+            }
         }
 
         function goToIncidentEditPage(incidentId) {
@@ -504,7 +507,6 @@
                 success: function (response) {
                     $('#contentDiv').html(null);
                     $('#contentDiv').html(response);
-
                     loadListUsers();
                 }
             })
@@ -537,6 +539,11 @@
                     $("form").removeData("validator");
                     $("form").removeData("unobtrusiveValidation");
                     $.validator.unobtrusive.parse("form");
+                    //$("#roleSelect").multiselect();
+                    $("#roleSelect").multiselect({
+                        templates: {
+                            button: '<button type="button" class="multiselect dropdown-toggle btn btn-light" data-bs-toggle="dropdown" aria-expanded="false"><span class="multiselect-selected-text"></span></button>', }, });
+
                 }
             })
         };
@@ -607,6 +614,12 @@
                     $("form").removeData("validator");
                     $("form").removeData("unobtrusiveValidation");
                     $.validator.unobtrusive.parse("form");
+                    $("#roleSelect").multiselect({
+                        templates: {
+                            button: '<button type="button" class="multiselect dropdown-toggle btn btn-light" data-bs-toggle="dropdown" aria-expanded="false"><span class="multiselect-selected-text"></span></button>',
+                        },
+                    });
+
                 }
             });
         }
